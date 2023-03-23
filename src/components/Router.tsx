@@ -11,7 +11,7 @@ const Router : React.FC = () => <>
     <Routes>
         <Route path="/" element={<MainLayout />}>
             <Route index element={<Home />}></Route>
-            <Route path="/current" element={<Current />}></Route>
+            <Route path="/current/:locationId" element={<Current />}></Route>
             <Route path="/favourites" element={<Favourites />}></Route>
             <Route path="/forecast" element={<Forecast />}></Route>
             <Route path="/historical" element={<Historical />}></Route>

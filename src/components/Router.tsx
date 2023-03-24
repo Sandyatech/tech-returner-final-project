@@ -5,6 +5,7 @@ import FavouritesWeather from './Favourites';
 import Current from './Current';
 import Forecast from './Forecast';
 import Historical from './Historical';
+import Health from './Health';
 import Error404 from './Error404';
 
 const Router : React.FC = () => <>
@@ -15,6 +16,7 @@ const Router : React.FC = () => <>
             <Route path="/favourites" element={<FavouritesWeather />}></Route>
             <Route path="/forecast" element={<Forecast />}></Route>
             <Route path="/historical" element={<Historical />}></Route>
+            <Route path="/health" element={<Health />}></Route>
             <Route path="*" element={<Error404 />}></Route>
         </Route>
     </Routes>

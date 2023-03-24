@@ -1,7 +1,7 @@
 import { Routes, Route } from 'react-router-dom';
 import MainLayout from './MainLayout';
 import Home from './Home';
-import Favourites from './Favourites';
+import FavouritesWeather from './Favourites';
 import Current from './Current';
 import Forecast from './Forecast';
 import Historical from './Historical';
@@ -12,7 +12,7 @@ const Router : React.FC = () => <>
         <Route path="/" element={<MainLayout />}>
             <Route index element={<Home />}></Route>
             <Route path="/current/:locationId" element={<Current />}></Route>
-            <Route path="/favourites" element={<Favourites />}></Route>
+            <Route path="/favourites" element={<FavouritesWeather />}></Route>
             <Route path="/forecast" element={<Forecast />}></Route>
             <Route path="/historical" element={<Historical />}></Route>
             <Route path="*" element={<Error404 />}></Route>

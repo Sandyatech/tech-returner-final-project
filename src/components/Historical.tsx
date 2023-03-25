@@ -29,20 +29,13 @@ const MultiaxisHistoryWeathe: React.FC = () => {
     const [weatherData, setWeatherData] = useState<WeatherData>();
     const [date, setDate] = useState<String>("");
     const [dateSubtract, setDateSubtract] = useState<number>(1);
+    const [labelArray, setLabelArray] = useState<number[]>([]);
 
     ChartJS.register(LineController, LineElement, PointElement, LinearScale, Title, CategoryScale, Tooltip, Legend);
 
-    // useEffect(() => {
-    //     const dateOfYesterday = moment().subtract(1, "days").format("YYYY-MM-DD");
-    //     // const today = moment().format("YYYY-MM-DD");
-    //     // console.log(`dateOfYesterday: ${dateOfYesterday}`);
-    //     setDate(dateOfYesterday);
-    // }, []);
-
     useEffect(() => {
         const dateBefore = moment().subtract(dateSubtract, "days").format("YYYY-MM-DD");
-        // const today = moment().format("YYYY-MM-DD");
-        // console.log(`dateOfYesterday: ${dateOfYesterday}`);
+
         setDate(dateBefore);
     }, [dateSubtract]);
 
@@ -64,20 +57,30 @@ const MultiaxisHistoryWeathe: React.FC = () => {
                         },
                     }
                 );
-                console.log(response.data.forecast.forecastday[0]);
+                // console.log(response.data.forecast.forecastday[0]);
+                createLabelArray();
                 setWeatherData(response.data.forecast.forecastday[0]);
             };
             fetchData();
         }
     }, [date]);
 
-    // useEffect(() => {
-    //   const listOfKeys = Object.keys(weatherData.)
-    // }, [weatherData]);
+    const createLabelArray = () => {
+        if (dateSubtract === 0) {
+            setLabelArray(createConsecutiveArray(moment().hour()));
+        } else {
+            setLabelArray(createConsecutiveArray(24));
+        }
+    };
+
+    const createConsecutiveArray = (num: number) => {
+        return Array.from({ length: num }, (_, i) => i);
+    };
 
     const data = {
         // labels: weatherData.map((data) => data.hour),
-        labels: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23],
+        // labels: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23],
+        labels: labelArray,
         datasets: [
             {
                 label: "Temperature (C)",

@@ -70,6 +70,23 @@ const MultiaxisHistoryWeathe: React.FC = () => {
         return Array.from({ length: num }, (_, i) => i);
     };
 
+    const buttonsHandler = (input: -1 | 1) => {
+        if (dateValidator(input)) {
+            setDateSubtract(dateSubtract + input);
+        } else {
+            alert("Can only show pass 7 days weather data history!");
+        }
+    };
+
+    const dateValidator = (input: -1 | 1) => {
+        const max_dateSubtract = 7; // 7 days before
+        const min_dateSubtract = 0; // today
+        const adjusted_dateSubtract = dateSubtract + input;
+        if (adjusted_dateSubtract >= min_dateSubtract && adjusted_dateSubtract <= max_dateSubtract) {
+            return true;
+        }
+    };
+
     const data = {
         labels: labelArray,
         datasets: [
@@ -112,23 +129,6 @@ const MultiaxisHistoryWeathe: React.FC = () => {
                 },
             },
         },
-    };
-
-    const buttonsHandler = (input: -1 | 1) => {
-        if (dateValidator(input)) {
-            setDateSubtract(dateSubtract + input);
-        } else {
-            alert("Can only show pass 7 days weather data history!");
-        }
-    };
-
-    const dateValidator = (input: -1 | 1) => {
-        const max_dateSubtract = 7; // 7 days before
-        const min_dateSubtract = 0; // today
-        const adjusted_dateSubtract = dateSubtract + input;
-        if (adjusted_dateSubtract >= min_dateSubtract && adjusted_dateSubtract <= max_dateSubtract) {
-            return true;
-        }
     };
 
     return (

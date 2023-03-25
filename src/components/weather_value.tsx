@@ -1,20 +1,22 @@
 import React from "react";
-import { Root } from "./interface_weather";
+
+import { Root_current, Location, CurrentWeatherData } from "./interface_weather" ;
 
 
 export interface propsWeather {
 
-    dataWeather: Root
+    dataWeather: {
+        location: Location;
+        current: CurrentWeatherData
+    }
+}
 
-
-};
 
 const ComponentCurrentWether: React.FC<propsWeather> = ({ dataWeather }) => {
 
     return (
 
         <div className="App-header">
-                        {/* console.log(dataWeather); */}
 
             <h3>  {dataWeather.location.name} </h3>
             <table>
@@ -55,6 +57,7 @@ const ComponentCurrentWether: React.FC<propsWeather> = ({ dataWeather }) => {
                     <td>{dataWeather.current.wind_kph}</td>
                 </tr>
             </table>
+
 
         </div>
 

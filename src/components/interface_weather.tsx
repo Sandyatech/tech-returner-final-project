@@ -1,4 +1,4 @@
-export type Root_current = {
+export type RootCurrent = {
     location: Location;
     current: CurrentWeatherData;
 };

@@ -137,9 +137,9 @@ const MultiaxisHistoryWeathe: React.FC = () => {
     };
 
     return (
-        <div>
+        <div style={{ display: "flex", flexDirection: "column", maxHeight: "800px", alignItems: "center" }}>
             <h2 style={{ textAlign: "center" }}>History Weather on {date}</h2>
-            <Line data={data} options={options} />
+            <Line style={{ textAlign: "center" }} data={data} options={options} />
         </div>
     );
 };

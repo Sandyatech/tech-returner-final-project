@@ -14,7 +14,7 @@ import {
 } from "chart.js";
 import moment from "moment";
 
-// TODO:
+// TODO: 1
 // more chart
 // change day
 
@@ -28,39 +28,47 @@ const MultiaxisHistoryWeathe: React.FC = () => {
     // const [weatherData, setWeatherData] = useState<WeatherData[]>([]);
     const [weatherData, setWeatherData] = useState<WeatherData>();
     const [date, setDate] = useState<String>("");
+    const [dateSubtract, setDateSubtract] = useState<number>(1);
 
     ChartJS.register(LineController, LineElement, PointElement, LinearScale, Title, CategoryScale, Tooltip, Legend);
 
+    // useEffect(() => {
+    //     const dateOfYesterday = moment().subtract(1, "days").format("YYYY-MM-DD");
+    //     // const today = moment().format("YYYY-MM-DD");
+    //     // console.log(`dateOfYesterday: ${dateOfYesterday}`);
+    //     setDate(dateOfYesterday);
+    // }, []);
+
     useEffect(() => {
-        const dateOfYesterday = moment().subtract(1, "days").format("YYYY-MM-DD");
+        const dateBefore = moment().subtract(dateSubtract, "days").format("YYYY-MM-DD");
         // const today = moment().format("YYYY-MM-DD");
         // console.log(`dateOfYesterday: ${dateOfYesterday}`);
-        setDate(dateOfYesterday);
-    }, []);
+        setDate(dateBefore);
+    }, [dateSubtract]);
 
     useEffect(() => {
-        const fetchData = async () => {
-            const response = await axios.get<{ forecast: { forecastday: WeatherData[] } }>(
-                "https://weatherapi-com.p.rapidapi.com/history.json",
-                {
-                    headers: {
-                        "X-RapidAPI-Key": "3ef5c4e138msh91644e12beb4158p1e5cb6jsn1b6b43ab6590",
-                        "X-RapidAPI-Host": "weatherapi-com.p.rapidapi.com",
-                    },
-                    params: {
-                        q: "London",
-                        dt: date,
-                        lang: "en",
-                        // end_dt: '1daysago',
-                    },
-                }
-            );
-            console.log(response.data.forecast.forecastday[0]);
-
-            setWeatherData(response.data.forecast.forecastday[0]);
-        };
-
-        fetchData();
+        if (date) {
+            const fetchData = async () => {
+                const response = await axios.get<{ forecast: { forecastday: WeatherData[] } }>(
+                    "https://weatherapi-com.p.rapidapi.com/history.json",
+                    {
+                        headers: {
+                            "X-RapidAPI-Key": "3ef5c4e138msh91644e12beb4158p1e5cb6jsn1b6b43ab6590",
+                            "X-RapidAPI-Host": "weatherapi-com.p.rapidapi.com",
+                        },
+                        params: {
+                            q: "London",
+                            dt: date,
+                            lang: "en",
+                            // end_dt: '1daysago',
+                        },
+                    }
+                );
+                console.log(response.data.forecast.forecastday[0]);
+                setWeatherData(response.data.forecast.forecastday[0]);
+            };
+            fetchData();
+        }
     }, [date]);
 
     // useEffect(() => {
@@ -136,10 +144,52 @@ const MultiaxisHistoryWeathe: React.FC = () => {
         },
     };
 
+    // const buttonHandler_decrement = (e: React.MouseEvent<HTMLElement>) => {
+    //     if (dateValidator(1)) {
+    //         setDateSubtract(dateSubtract + 1);
+    //     } else {
+    //         alert("Can only show max 7 days history weather!");
+    //     }
+    // };
+
+    // const buttonHandler_increment = (e: React.MouseEvent<HTMLElement>) => {
+    //     if (dateValidator(-1)) {
+    //         setDateSubtract(dateSubtract - 1);
+    //     } else {
+    //         alert("Cannot show futher weather data!");
+    //     }
+    // };
+
+    const buttonsHandler = (input: -1 | 1) => {
+        if (dateValidator(input)) {
+            setDateSubtract(dateSubtract + input);
+        } else {
+            alert("Can only show pass 7 days weather data history!");
+        }
+    };
+
+    const dateValidator = (input: -1 | 1) => {
+        const max_dateSubtract = 7; // 7 days before
+        const min_dateSubtract = 0; // today
+        const adjusted_dateSubtract = dateSubtract + input;
+        if (adjusted_dateSubtract >= min_dateSubtract && adjusted_dateSubtract <= max_dateSubtract) {
+            return true;
+        }
+    };
+
     return (
-        <div>
-            <h2 style={{ textAlign: "center" }}>History Weather on {date}</h2>
-            <Line data={data} options={options} />
+        <div style={{ display: "flex", flexDirection: "column", maxHeight: "700px", alignItems: "center" }}>
+            <div style={{ display: "flex", flexDirection: "row", justifyContent: "space-around" }}>
+                <button style={{ marginRight: "10%", width: "10rem" }} onClick={() => buttonsHandler(1)}>
+                    Prev. Day
+                </button>
+                <h2 style={{ textAlign: "center" }}>History Weather on {date}</h2>
+                <h2 style={{ textAlign: "center" }}>{dateSubtract}</h2>
+                <button style={{ marginLeft: "10%", width: "10rem" }} onClick={() => buttonsHandler(-1)}>
+                    Next Day
+                </button>
+            </div>
+            <Line style={{ textAlign: "center" }} data={data} options={options} />
         </div>
     );
 };

@@ -17,6 +17,7 @@ export type Location = {
 export type CurrentWeatherData = CommonWeatherData & {
     last_updated_epoch: number;
     last_updated: string;
+    
 };
 
 export type HistoryHourlyData = CommonWeatherData & {

@@ -1,6 +1,5 @@
 const Error404 : React.FC = () => <>
-    <p>404: Page not found.</p>
-    <p>Apologies from the Government of Fakelandia for this inconvenience, which is fortunately not a misdemeanour.</p>
+    <p>404: Page not found.</p>   
 </>;
 
 export default Error404;

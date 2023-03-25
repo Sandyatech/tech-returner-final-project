@@ -14,7 +14,6 @@ import {
 } from "chart.js";
 import moment from "moment";
 
-// TODO:
 // more chart
 // change day
 
@@ -27,44 +26,37 @@ type WeatherData = {
 const MultiaxisHistoryWeathe: React.FC = () => {
     // const [weatherData, setWeatherData] = useState<WeatherData[]>([]);
     const [weatherData, setWeatherData] = useState<WeatherData>();
-    const [date, setDate] = useState<String>("");
-    const [loading, setLoading] = useState<Boolean>(true);
 
     ChartJS.register(LineController, LineElement, PointElement, LinearScale, Title, CategoryScale, Tooltip, Legend);
 
+    const dateOfYesterday = moment().subtract(1, "days").format("YYYY-MM-DD");
+    const today = moment().format("YYYY-MM-DD");
+    console.log(`dateOfYesterday: ${dateOfYesterday}`);
+
     useEffect(() => {
-        const dateOfYesterday = moment().subtract(1, "days").format("YYYY-MM-DD");
-        setDate(dateOfYesterday);
-        // const today = moment().format('YYYY-MM-DD');
-        console.log(`dateOfYesterday: ${dateOfYesterday}`);
+        const fetchData = async () => {
+            const response = await axios.get<{ forecast: { forecastday: WeatherData[] } }>(
+                "https://weatherapi-com.p.rapidapi.com/history.json",
+                {
+                    headers: {
+                        "X-RapidAPI-Key": "3ef5c4e138msh91644e12beb4158p1e5cb6jsn1b6b43ab6590",
+                        "X-RapidAPI-Host": "weatherapi-com.p.rapidapi.com",
+                    },
+                    params: {
+                        q: "London",
+                        dt: today,
+                        lang: "en",
+                        // end_dt: '1daysago',
+                    },
+                }
+            );
+            console.log(response.data.forecast.forecastday[0]);
+
+            setWeatherData(response.data.forecast.forecastday[0]);
+        };
+
+        fetchData();
     }, []);
-
-    useEffect(() => {
-        if (date) {
-            const fetchData = async () => {
-                const response = await axios.get<{ forecast: { forecastday: WeatherData[] } }>(
-                    "https://weatherapi-com.p.rapidapi.com/history.json",
-                    {
-                        headers: {
-                            "X-RapidAPI-Key": "3ef5c4e138msh91644e12beb4158p1e5cb6jsn1b6b43ab6590",
-                            "X-RapidAPI-Host": "weatherapi-com.p.rapidapi.com",
-                        },
-                        params: {
-                            q: "London",
-                            dt: date,
-                            lang: "en",
-                            // end_dt: '1daysago',
-                        },
-                    }
-                );
-                console.log(response.data.forecast.forecastday[0]);
-
-                setWeatherData(response.data.forecast.forecastday[0]);
-                setLoading(false);
-            };
-            fetchData();
-        }
-    }, [date]);
 
     // useEffect(() => {
     //   const listOfKeys = Object.keys(weatherData.)
@@ -96,6 +88,19 @@ const MultiaxisHistoryWeathe: React.FC = () => {
         ],
     };
 
+    // const options = {
+    //   responsive: true,
+    //   plugins: {
+    //     legend: {
+    //       position: 'top' as const,
+    //     },
+    //     title: {
+    //       display: true,
+    //       text: 'Chart.js Line Chart',
+    //     },
+    //   },
+    // };
+
     const options = {
         responsive: true,
         interaction: {
@@ -106,11 +111,7 @@ const MultiaxisHistoryWeathe: React.FC = () => {
         plugins: {
             title: {
                 display: true,
-                text: `Weather History on `,
-                // text: `Weather History on ${date}`,
-                // font: {
-                //     size: 24,
-                // },
+                text: "Chart.js Line Chart - Multi Axis",
             },
         },
         scales: {
@@ -132,9 +133,7 @@ const MultiaxisHistoryWeathe: React.FC = () => {
 
     return (
         <div>
-            {/* <h2 style={{ textAlign: "center" }}>Weather History on {date}</h2> */}
-            {/* {loading && <h2>Loading...</h2>}
-            {!loading && <Line data={data} options={options} />} */}
+            <h2>Yesterday</h2>
             <Line data={data} options={options} />
         </div>
     );
@@ -144,20 +143,9 @@ export default MultiaxisHistoryWeathe;
 
 /*
 last 7 day
-
-
 <      (Mar 23)       >
-
-
-
 - No today history 
 VS
 - display 00:00 - 11:00 today 
-
-
-
 1 more chart ?
-
-
-
 */

@@ -1,4 +1,4 @@
-export type Root = {
+export type Root_current = {
     location: Location;
     current: CurrentWeatherData;
 };
@@ -17,7 +17,6 @@ export type Location = {
 export type CurrentWeatherData = CommonWeatherData & {
     last_updated_epoch: number;
     last_updated: string;
-    
 };
 
 export type HistoryHourlyData = CommonWeatherData & {

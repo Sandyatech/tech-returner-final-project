@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import ComponentCurrentWether from "./weather_value"
-import {Root} from "../components/interface_weather" ;
+import {Root_current} from "../components/interface_weather" ;
 
 
 function CurrentWeather(input_location: any) {
@@ -20,7 +20,7 @@ function CurrentWeather(input_location: any) {
             const apiResponse = await fetch(`https://weatherapi-com.p.rapidapi.com/current.json?q=${input_location}`, options);
             if (apiResponse.status === 200) {
                 
-                const dataapiResponse = await apiResponse.json() as { data: Root[] }
+                const dataapiResponse = await apiResponse.json() as { data: Root_current[] }
                 setRoot(dataapiResponse);
 
             } else if (apiResponse.status === 500) {

@@ -1,5 +1,5 @@
 import React from "react";
-import { Root, Location, CurrentWeatherData } from "./interface_weather" ;
+import { Root_current, Location, CurrentWeatherData } from "./interface_weather" ;
 
 
 export interface propsWeather {

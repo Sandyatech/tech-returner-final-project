@@ -20,10 +20,7 @@ function CurrentWeather(input_location: any) {
             const apiResponse = await fetch(`https://weatherapi-com.p.rapidapi.com/current.json?q=${input_location}`, options);
             if (apiResponse.status === 200) {
                 
-                // const dataapiResponse = await apiResponse.json() as { data: any }
                 const dataapiResponse = await apiResponse.json() as { data: Root[] }
-                console.log("dataapiResponse")
-                console.log(dataapiResponse)
                 setRoot(dataapiResponse);
 
             } else if (apiResponse.status === 500) {

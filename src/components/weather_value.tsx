@@ -8,14 +8,10 @@ export interface propsWeather {
         location: Location;
         current: CurrentWeatherData
     }
-   
-    // dataWeather: any
 
 };
 
 const ComponentCurrentWether: React.FC<propsWeather> = ({ dataWeather }) => {
-console.log("dataWeather")
-console.log(dataWeather)
 
     return (
 

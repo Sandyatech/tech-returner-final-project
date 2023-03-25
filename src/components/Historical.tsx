@@ -14,10 +14,6 @@ import {
 } from "chart.js";
 import moment from "moment";
 
-// TODO: 1
-// more chart
-// change day
-
 type WeatherData = {
     date: string;
     day: any;
@@ -25,7 +21,6 @@ type WeatherData = {
 };
 
 const MultiaxisHistoryWeathe: React.FC = () => {
-    // const [weatherData, setWeatherData] = useState<WeatherData[]>([]);
     const [weatherData, setWeatherData] = useState<WeatherData>();
     const [date, setDate] = useState<String>("");
     const [dateSubtract, setDateSubtract] = useState<number>(1);
@@ -53,11 +48,9 @@ const MultiaxisHistoryWeathe: React.FC = () => {
                             q: "London",
                             dt: date,
                             lang: "en",
-                            // end_dt: '1daysago',
                         },
                     }
                 );
-                // console.log(response.data.forecast.forecastday[0]);
                 createLabelArray();
                 setWeatherData(response.data.forecast.forecastday[0]);
             };
@@ -77,92 +70,6 @@ const MultiaxisHistoryWeathe: React.FC = () => {
         return Array.from({ length: num }, (_, i) => i);
     };
 
-    const data = {
-        // labels: weatherData.map((data) => data.hour),
-        // labels: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23],
-        labels: labelArray,
-        datasets: [
-            {
-                label: "Temperature (C)",
-                data: weatherData?.hour.map((data) => data.temp_c),
-                borderColor: "rgb(255, 99, 132)",
-                backgroundColor: "rgba(255, 99, 132, 0.5)",
-                yAxisID: "y",
-                // borderWidth: 1,
-                // fill: false,
-            },
-            {
-                label: "Humidity (C)",
-                data: weatherData?.hour.map((data) => data.humidity),
-                // borderColor: 'rgba(75, 192, 192, 1)',
-                borderColor: "rgb(53, 162, 235)",
-                backgroundColor: "rgba(53, 162, 235, 0.5)",
-                yAxisID: "y1",
-                // borderWidth: 1,
-                // fill: false,
-            },
-        ],
-    };
-
-    // const options = {
-    //   responsive: true,
-    //   plugins: {
-    //     legend: {
-    //       position: 'top' as const,
-    //     },
-    //     title: {
-    //       display: true,
-    //       text: 'Chart.js Line Chart',
-    //     },
-    //   },
-    // };
-
-    const options = {
-        responsive: true,
-        interaction: {
-            mode: "index" as const,
-            intersect: false,
-        },
-        stacked: false,
-        // plugins: {
-        //     title: {
-        //         display: true,
-        //         text: "Chart.js Line Chart - Multi Axis",
-        //     },
-        // },
-        scales: {
-            y: {
-                type: "linear" as const,
-                display: true,
-                position: "left" as const,
-            },
-            y1: {
-                type: "linear" as const,
-                display: true,
-                position: "right" as const,
-                grid: {
-                    drawOnChartArea: false,
-                },
-            },
-        },
-    };
-
-    // const buttonHandler_decrement = (e: React.MouseEvent<HTMLElement>) => {
-    //     if (dateValidator(1)) {
-    //         setDateSubtract(dateSubtract + 1);
-    //     } else {
-    //         alert("Can only show max 7 days history weather!");
-    //     }
-    // };
-
-    // const buttonHandler_increment = (e: React.MouseEvent<HTMLElement>) => {
-    //     if (dateValidator(-1)) {
-    //         setDateSubtract(dateSubtract - 1);
-    //     } else {
-    //         alert("Cannot show futher weather data!");
-    //     }
-    // };
-
     const buttonsHandler = (input: -1 | 1) => {
         if (dateValidator(input)) {
             setDateSubtract(dateSubtract + input);
@@ -178,6 +85,50 @@ const MultiaxisHistoryWeathe: React.FC = () => {
         if (adjusted_dateSubtract >= min_dateSubtract && adjusted_dateSubtract <= max_dateSubtract) {
             return true;
         }
+    };
+
+    const data = {
+        labels: labelArray,
+        datasets: [
+            {
+                label: "Temperature (C)",
+                data: weatherData?.hour.map((data) => data.temp_c),
+                borderColor: "rgb(255, 99, 132)",
+                backgroundColor: "rgba(255, 99, 132, 0.5)",
+                yAxisID: "y",
+            },
+            {
+                label: "Humidity (C)",
+                data: weatherData?.hour.map((data) => data.humidity),
+                borderColor: "rgb(53, 162, 235)",
+                backgroundColor: "rgba(53, 162, 235, 0.5)",
+                yAxisID: "y1",
+            },
+        ],
+    };
+
+    const options = {
+        responsive: true,
+        interaction: {
+            mode: "index" as const,
+            intersect: false,
+        },
+        stacked: false,
+        scales: {
+            y: {
+                type: "linear" as const,
+                display: true,
+                position: "left" as const,
+            },
+            y1: {
+                type: "linear" as const,
+                display: true,
+                position: "right" as const,
+                grid: {
+                    drawOnChartArea: false,
+                },
+            },
+        },
     };
 
     return (
@@ -198,12 +149,3 @@ const MultiaxisHistoryWeathe: React.FC = () => {
 };
 
 export default MultiaxisHistoryWeathe;
-
-/*
-last 7 day
-<      (Mar 23)       >
-- No today history 
-VS
-- display 00:00 - 11:00 today 
-1 more chart ?
-*/

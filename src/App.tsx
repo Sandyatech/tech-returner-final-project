@@ -12,7 +12,7 @@ function App() {
                 <ul className="App-header">
                     <li ><Link to='/' className="menu">Home</Link></li>
                     <li ><Link to='/Current' className="menu">Current</Link></li>
-                    <li ><Link to='/Favorites' className="menu">FavouritesWeather</Link></li>
+                    <li ><Link to='/Favourites' className="menu">Favourites</Link></li>
                     <li ><Link to='/Forecast' className="menu">Forecast</Link></li>
                     <li ><Link to='/Historical' className="menu">Historical</Link></li>
                     <li ><Link to='/Health' className="menu">Health</Link></li>

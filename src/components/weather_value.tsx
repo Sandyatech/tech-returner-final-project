@@ -1,5 +1,7 @@
 import React from "react";
+
 import { RootCurrent, Location, CurrentWeatherData } from "./interface_weather" ;
+
 
 
 export interface propsWeather {
@@ -8,25 +10,55 @@ export interface propsWeather {
         location: Location;
         current: CurrentWeatherData
     }
+}
 
-};
 
 const ComponentCurrentWether: React.FC<propsWeather> = ({ dataWeather }) => {
 
     return (
 
         <div className="App-header">
-            
-            <h3>  {dataWeather.location?.name} </h3>
-            <p> Region : {dataWeather.location?.region} </p>
-            <p> Country : {dataWeather.location?.country} </p>
-            <p> TZ : {dataWeather.location?.tz_id} </p>
-            <p> Tempature C  : {dataWeather.current?.temp_c} </p>
-            <p> Tempature F : {dataWeather.current?.temp_f} </p>
-            <p> Weather Status : {dataWeather.current?.condition.text} </p>
-            <p> Weather Icon : {dataWeather.current?.condition.icon} </p>
-            <p> wind_mph  : {dataWeather.current?.wind_mph} </p>
-            <p> wind_kph : {dataWeather.current?.wind_kph} </p>
+
+            <h3>  {dataWeather.location.name} </h3>
+            <table>
+                <tr>
+                    <td>Region :</td>
+                    <td>{dataWeather.location.region}</td>
+                </tr>
+                <tr>
+                    <td>Country :</td>
+                    <td>{dataWeather.location.country}</td>
+                </tr>
+                <tr>
+                    <td>Time Zone :</td>
+                    <td>{dataWeather.location.tz_id}</td>
+                </tr>
+                <tr>
+                    <td>Tempature C :</td>
+                    <td>{dataWeather.current.temp_c}</td>
+                </tr>
+                <tr>
+                    <td>Tempature F :</td>
+                    <td>{dataWeather.current.temp_f}</td>
+                </tr>
+                <tr>
+                    <td>Weather Status :</td>
+                    <td>{dataWeather.current.condition.text}</td>
+                </tr>
+                <tr>
+                    <td>Weather Icon :</td>
+                    <td><img src={dataWeather.current.condition.icon}></img></td>
+                </tr>
+                <tr>
+                    <td>Wind MPH :</td>
+                    <td>{dataWeather.current.wind_mph}</td>
+                </tr>
+                <tr>
+                    <td>Wind Kph :</td>
+                    <td>{dataWeather.current.wind_kph}</td>
+                </tr>
+            </table>
+
 
         </div>
 

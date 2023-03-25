@@ -26,12 +26,16 @@ type WeatherData = {
 const MultiaxisHistoryWeathe: React.FC = () => {
     // const [weatherData, setWeatherData] = useState<WeatherData[]>([]);
     const [weatherData, setWeatherData] = useState<WeatherData>();
+    const [date, setDate] = useState<String>("");
 
     ChartJS.register(LineController, LineElement, PointElement, LinearScale, Title, CategoryScale, Tooltip, Legend);
 
-    const dateOfYesterday = moment().subtract(1, "days").format("YYYY-MM-DD");
-    const today = moment().format("YYYY-MM-DD");
-    console.log(`dateOfYesterday: ${dateOfYesterday}`);
+    useEffect(() => {
+        const dateOfYesterday = moment().subtract(1, "days").format("YYYY-MM-DD");
+        // const today = moment().format("YYYY-MM-DD");
+        // console.log(`dateOfYesterday: ${dateOfYesterday}`);
+        setDate(dateOfYesterday);
+    }, []);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -44,7 +48,7 @@ const MultiaxisHistoryWeathe: React.FC = () => {
                     },
                     params: {
                         q: "London",
-                        dt: today,
+                        dt: date,
                         lang: "en",
                         // end_dt: '1daysago',
                     },
@@ -56,7 +60,7 @@ const MultiaxisHistoryWeathe: React.FC = () => {
         };
 
         fetchData();
-    }, []);
+    }, [date]);
 
     // useEffect(() => {
     //   const listOfKeys = Object.keys(weatherData.)
@@ -108,12 +112,12 @@ const MultiaxisHistoryWeathe: React.FC = () => {
             intersect: false,
         },
         stacked: false,
-        plugins: {
-            title: {
-                display: true,
-                text: "Chart.js Line Chart - Multi Axis",
-            },
-        },
+        // plugins: {
+        //     title: {
+        //         display: true,
+        //         text: "Chart.js Line Chart - Multi Axis",
+        //     },
+        // },
         scales: {
             y: {
                 type: "linear" as const,
@@ -133,7 +137,7 @@ const MultiaxisHistoryWeathe: React.FC = () => {
 
     return (
         <div>
-            <h2>Yesterday</h2>
+            <h2 style={{ textAlign: "center" }}>History Weather on {date}</h2>
             <Line data={data} options={options} />
         </div>
     );

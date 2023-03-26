@@ -3,6 +3,21 @@ export type RootCurrent = {
     current: CurrentWeatherData;
 };
 
+export type RootForecast = {
+    location: Location;
+    current: CurrentWeatherData;
+    forecast: {
+        forecastday: Array<Forecastday>;
+    };
+};
+
+export type RootHistroy = {
+    location: Location;
+    forecast: {
+        forecastday: Array<Forecastday>;
+    };
+};
+
 export type Location = {
     name: string;
     region: string;
@@ -19,7 +34,15 @@ export type CurrentWeatherData = CommonWeatherData & {
     last_updated: string;
 };
 
-export type HistoryHourlyData = CommonWeatherData & {
+export type Forecastday = {
+    date: string;
+    date_epoch: number;
+    day: Day;
+    astro: Astro;
+    hour: Array<HourlyData>;
+};
+
+export type HourlyData = CommonWeatherData & {
     time_epoch: number;
     time: string;
     windchill_c: number;
@@ -60,4 +83,35 @@ export type CommonWeatherData = {
     uv: number;
     gust_mph: number;
     gust_kph: number;
+};
+
+export type Day = {
+    maxtemp_c: number;
+    maxtemp_f: number;
+    mintemp_c: number;
+    mintemp_f: number;
+    avgtemp_c: number;
+    avgtemp_f: number;
+    maxwind_mph: number;
+    maxwind_kph: number;
+    totalprecip_mm: number;
+    totalprecip_in: number;
+    avgvis_km: number;
+    avgvis_miles: number;
+    avghumidity: number;
+    condition: {
+        text: string;
+        icon: string;
+        code: number;
+    };
+    uv: number;
+};
+
+export type Astro = {
+    sunrise: string;
+    sunset: string;
+    moonrise: string;
+    moonset: string;
+    moon_phase: string;
+    moon_illumination: string;
 };

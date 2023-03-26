@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+// import axios from "axios";
 import { Line } from "react-chartjs-2";
 import {
     Chart as ChartJS,
@@ -14,7 +14,10 @@ import {
 } from "chart.js";
 import moment from "moment";
 import { RootHistroy, Forecastday } from "./interface_weather";
-import { headers } from "../API";
+import { fetchData } from "../services/httpsServices";
+
+// import { headers } from "../API";
+// import { HISTORY_URL } from "../API";
 
 const MultiaxisHistoryWeathe: React.FC = () => {
     const [weatherData, setWeatherData] = useState<Forecastday>(); // note: named as Forecastday from API but actually history data
@@ -31,21 +34,40 @@ const MultiaxisHistoryWeathe: React.FC = () => {
 
     useEffect(() => {
         if (date) {
-            const fetchData = async () => {
-                const response = await axios.get<RootHistroy>("https://weatherapi-com.p.rapidapi.com/history.json", {
-                    headers: headers,
-                    params: {
-                        // TODO2: useContent
-                        q: "London",
-                        dt: date,
-                        lang: "en",
-                    },
-                });
+            const getData = async () => {
+                const params = {
+                    // TODO2: useContent
+                    q: "London",
+                    dt: date,
+                    lang: "en",
+                };
+                const response = (await fetchData({
+                    responseType: "RootHistroy",
+                    params,
+                })) as RootHistroy;
+
+                // urlPath: HISTORY_URL,
+                // const result = await fetchData<MyResponseType>({
+                //     responseType: MyResponseType,
+                //     urlPath: '/api/data',
+                //     params: { id: 1 },
+                //   });
+
+                // const response = await axios.get<RootHistroy>("https://weatherapi-com.p.rapidapi.com/history.json", {
+                //     headers: headers,
+                //     params: {
+                //         // TODO2: useContent
+                //         q: "London",
+                //         dt: date,
+                //         lang: "en",
+                //     },
+                // });
                 // TODO2: error handling
                 createLabelArray();
-                setWeatherData(response.data?.forecast?.forecastday[0]);
+                setWeatherData(response?.forecast?.forecastday[0]);
+                // setWeatherData(response.data?.forecast?.forecastday[0]);
             };
-            fetchData();
+            getData();
         }
     }, [date]);
 

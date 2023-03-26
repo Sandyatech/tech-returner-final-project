@@ -8,4 +8,7 @@ export const options = {
     headers: headers,
 };
 
-export const WEATHERAPI_BASE_URL = "https://weatherapi-com.p.rapidapi.com/current.json";
+export const BASE_URL = "https://weatherapi-com.p.rapidapi.com/";
+export const CURRENT_URL = `${BASE_URL}current.json`;
+export const FORECAST_URL = `${BASE_URL}forecast.json`;
+export const HISTORY_URL = `${BASE_URL}history.json`;

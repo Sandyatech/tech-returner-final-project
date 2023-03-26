@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-// import axios from "axios";
 import { Line } from "react-chartjs-2";
 import {
     Chart as ChartJS,
@@ -15,9 +14,8 @@ import {
 import moment from "moment";
 import { RootHistroy, Forecastday } from "./interface_weather";
 import { fetchData } from "../services/httpsServices";
-
-// import { headers } from "../API";
-// import { HISTORY_URL } from "../API";
+import { dateValidator } from "../utils/validator";
+import { createConsecutiveArray } from "../utils/utils";
 
 const MultiaxisHistoryWeathe: React.FC = () => {
     const [weatherData, setWeatherData] = useState<Forecastday>(); // note: named as Forecastday from API but actually history data
@@ -46,26 +44,9 @@ const MultiaxisHistoryWeathe: React.FC = () => {
                     params,
                 })) as RootHistroy;
 
-                // urlPath: HISTORY_URL,
-                // const result = await fetchData<MyResponseType>({
-                //     responseType: MyResponseType,
-                //     urlPath: '/api/data',
-                //     params: { id: 1 },
-                //   });
-
-                // const response = await axios.get<RootHistroy>("https://weatherapi-com.p.rapidapi.com/history.json", {
-                //     headers: headers,
-                //     params: {
-                //         // TODO2: useContent
-                //         q: "London",
-                //         dt: date,
-                //         lang: "en",
-                //     },
-                // });
                 // TODO2: error handling
                 createLabelArray();
                 setWeatherData(response?.forecast?.forecastday[0]);
-                // setWeatherData(response.data?.forecast?.forecastday[0]);
             };
             getData();
         }
@@ -79,24 +60,11 @@ const MultiaxisHistoryWeathe: React.FC = () => {
         }
     };
 
-    const createConsecutiveArray = (num: number) => {
-        return Array.from({ length: num }, (_, i) => i);
-    };
-
     const buttonsHandler = (input: -1 | 1) => {
-        if (dateValidator(input)) {
+        if (dateValidator(input, dateSubtract)) {
             setDateSubtract(dateSubtract + input);
         } else {
             alert("Can only show pass 7 days weather data history!");
-        }
-    };
-
-    const dateValidator = (input: -1 | 1) => {
-        const max_dateSubtract = 7; // 7 days before
-        const min_dateSubtract = 0; // today
-        const adjusted_dateSubtract = dateSubtract + input;
-        if (adjusted_dateSubtract >= min_dateSubtract && adjusted_dateSubtract <= max_dateSubtract) {
-            return true;
         }
     };
 

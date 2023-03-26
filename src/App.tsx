@@ -18,7 +18,10 @@ function App() {
                     <li ><Link to='/Health' className="menu menu_font">Health</Link></li>
                 </ul>
                 <hr />
-                <Router />
+                <div className="main_content">
+                    <Router />
+                </div>
+                
             </BrowserRouter>
             <div className="App-footer footer_font">&#169; 2023 ReactTsGroup All Rights Reserved</div>
         </ErrorBoundary>

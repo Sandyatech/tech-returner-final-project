@@ -1,3 +1,6 @@
+const RESPONSE_TYPE = ["RootCurrent", "RootForecast", "RootHistroy"] as const;
+export type ResponseType = typeof RESPONSE_TYPE[number];
+
 export type RootCurrent = {
     location: Location;
     current: CurrentWeatherData;

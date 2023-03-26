@@ -20,6 +20,7 @@ function App() {
                 <hr />
                 <Router />
             </BrowserRouter>
+            <div className="App-header App-footer">&#169; 2023 ReactTsGroup All Rights Reserved</div>
         </ErrorBoundary>
     );
 }

@@ -3,6 +3,42 @@ body{
     min-height:100vh;
 }
 
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+    .menu_font {
+        font-size: 0.8em;
+    }
+}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) {
+    .menu_font {
+        font-size: 1.25em;
+    }
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+    .menu_font {
+        font-size: 1.5em;
+    }
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+    .menu_font {
+        font-size: 1.75em;
+    }
+   
+}
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {
+    .menu_font {
+        font-size: 2em;
+    }
+}
+/*******************************Start of Header & Menu*********************************/
 .App {
   text-align: center;
 }
@@ -19,6 +55,24 @@ body{
     list-style: none;
     background: #254257;
 }
+.menu {
+    display: block;
+    text-decoration: none;
+    color: white;
+    padding: 0.5em;
+}
+
+    .menu:hover {
+        background: black;
+    }
+
+ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+/*******************************End of Header & Menu*********************************/
+/*******************************Start of Footer*********************************/
 .App-footer {
     background: #254257;
     color: white;
@@ -29,7 +83,8 @@ body{
     text-align: center;
     font-size: 1.25em;
 }
-
+/*******************************End of Footer*********************************/
+/*******************************Start of Current WeatherPage*********************************/
 .Current {
     border-radius: 5px;
     margin:auto 20vw auto 20vw;
@@ -66,30 +121,9 @@ body{
     margin: 0.5em;
 }
 
+/*******************************End of Current WeatherPage*********************************/
 
 
-li {
-    width: 25%;
-    text-align: center;
-}
-
-.menu {
-    display: block;
-    font-size: 1.75em;
-    text-decoration: none;
-    color: white;
-    padding: 0.5em;
-}
-
-.menu:hover {
-        background: black;
-    }
-
-ul {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
 
 
 .container {

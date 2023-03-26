@@ -13,15 +13,11 @@ import {
     Legend,
 } from "chart.js";
 import moment from "moment";
-
-type WeatherData = {
-    date: string;
-    day: any;
-    hour: Array<any>;
-};
+import { RootHistroy, Forecastday } from "./interface_weather";
+import { headers } from "../API";
 
 const MultiaxisHistoryWeathe: React.FC = () => {
-    const [weatherData, setWeatherData] = useState<WeatherData>();
+    const [weatherData, setWeatherData] = useState<Forecastday>(); // note: named as Forecastday from API but actually history data
     const [date, setDate] = useState<String>("");
     const [dateSubtract, setDateSubtract] = useState<number>(1);
     const [labelArray, setLabelArray] = useState<number[]>([]);
@@ -30,29 +26,24 @@ const MultiaxisHistoryWeathe: React.FC = () => {
 
     useEffect(() => {
         const dateBefore = moment().subtract(dateSubtract, "days").format("YYYY-MM-DD");
-
         setDate(dateBefore);
     }, [dateSubtract]);
 
     useEffect(() => {
         if (date) {
             const fetchData = async () => {
-                const response = await axios.get<{ forecast: { forecastday: WeatherData[] } }>(
-                    "https://weatherapi-com.p.rapidapi.com/history.json",
-                    {
-                        headers: {
-                            "X-RapidAPI-Key": "3ef5c4e138msh91644e12beb4158p1e5cb6jsn1b6b43ab6590",
-                            "X-RapidAPI-Host": "weatherapi-com.p.rapidapi.com",
-                        },
-                        params: {
-                            q: "London",
-                            dt: date,
-                            lang: "en",
-                        },
-                    }
-                );
+                const response = await axios.get<RootHistroy>("https://weatherapi-com.p.rapidapi.com/history.json", {
+                    headers: headers,
+                    params: {
+                        // TODO2: useContent
+                        q: "London",
+                        dt: date,
+                        lang: "en",
+                    },
+                });
+                // TODO2: error handling
                 createLabelArray();
-                setWeatherData(response.data.forecast.forecastday[0]);
+                setWeatherData(response.data?.forecast?.forecastday[0]);
             };
             fetchData();
         }
@@ -92,14 +83,14 @@ const MultiaxisHistoryWeathe: React.FC = () => {
         datasets: [
             {
                 label: "Temperature (C)",
-                data: weatherData?.hour.map((data) => data.temp_c),
+                data: weatherData?.hour?.map((data) => data.temp_c),
                 borderColor: "rgb(255, 99, 132)",
                 backgroundColor: "rgba(255, 99, 132, 0.5)",
                 yAxisID: "y",
             },
             {
-                label: "Humidity (C)",
-                data: weatherData?.hour.map((data) => data.humidity),
+                label: "Humidity (%)",
+                data: weatherData?.hour?.map((data) => data.humidity),
                 borderColor: "rgb(53, 162, 235)",
                 backgroundColor: "rgba(53, 162, 235, 0.5)",
                 yAxisID: "y1",
@@ -128,6 +119,12 @@ const MultiaxisHistoryWeathe: React.FC = () => {
                     drawOnChartArea: false,
                 },
             },
+            x: {
+                title: {
+                    display: true,
+                    text: "Hour",
+                },
+            },
         },
     };
 
@@ -138,7 +135,6 @@ const MultiaxisHistoryWeathe: React.FC = () => {
                     Prev. Day
                 </button>
                 <h2 style={{ textAlign: "center" }}>History Weather on {date}</h2>
-                <h2 style={{ textAlign: "center" }}>{dateSubtract}</h2>
                 <button style={{ marginLeft: "10%", width: "10rem" }} onClick={() => buttonsHandler(-1)}>
                     Next Day
                 </button>

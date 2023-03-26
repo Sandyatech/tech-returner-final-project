@@ -12,10 +12,10 @@ import {
     Legend,
 } from "chart.js";
 import moment from "moment";
-import { RootHistroy, Forecastday } from "./interface_weather";
-import { fetchData } from "../services/httpsServices";
-import { dateValidator } from "../utils/validator";
-import { createConsecutiveArray } from "../utils/utils";
+import { RootHistroy, Forecastday } from "../../components/interface_weather";
+import { fetchData } from "../../services/httpsServices";
+import { dateValidator } from "../../utils/validator";
+import { createConsecutiveArray } from "../../utils/utils";
 
 const MultiaxisHistoryWeathe: React.FC = () => {
     const [weatherData, setWeatherData] = useState<Forecastday>(); // note: named as Forecastday from API but actually history data
@@ -129,7 +129,7 @@ const MultiaxisHistoryWeathe: React.FC = () => {
                     Next Day
                 </button>
             </div>
-            <Line style={{ textAlign: "center" }} data={data} options={options} />
+            <Line data={data} options={options} />
         </div>
     );
 };

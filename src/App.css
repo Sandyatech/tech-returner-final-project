@@ -1,7 +1,12 @@
 body{
     position:relative;
-    min-height:100vh;
+    min-height:100%;
 }
+
+.main_content {
+    padding-bottom: 40px;
+}
+
 
 /* Extra small devices (phones, 600px and down) */
 @media only screen and (max-width: 600px) {
@@ -143,12 +148,16 @@ ul {
 /*******************************Start of Footer*********************************/
 .App-footer {
     background: #254257;
+    bottom: 0px;
+    height: 40px;
+    right: 0%;
+    left: 0%;
+    position: fixed !important;
+    position: absolute;
     color: white;
-    position: relative;
-    bottom: 0;
     width: 100%;
-    height: 2.5em;
     text-align: center;
+    visibility: visible;
 }
 /*******************************End of Footer*********************************/
 /*******************************Start of Current WeatherPage*********************************/

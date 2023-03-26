@@ -17,47 +17,48 @@ const ComponentCurrentWether: React.FC<propsWeather> = ({ dataWeather }) => {
 
     return (
 
-        <div className="App-header">
-
+        <div className="Current">
+            <div className="Current-header">
             <h3>  {dataWeather.location.name} </h3>
-            <table>
-                <tr>
-                    <td>Region :</td>
-                    <td>{dataWeather.location.region}</td>
-                </tr>
-                <tr>
-                    <td>Country :</td>
-                    <td>{dataWeather.location.country}</td>
-                </tr>
-                <tr>
-                    <td>Time Zone :</td>
-                    <td>{dataWeather.location.tz_id}</td>
-                </tr>
-                <tr>
-                    <td>Tempature C :</td>
-                    <td>{dataWeather.current.temp_c}</td>
-                </tr>
-                <tr>
-                    <td>Tempature F :</td>
-                    <td>{dataWeather.current.temp_f}</td>
-                </tr>
-                <tr>
-                    <td>Weather Status :</td>
-                    <td>{dataWeather.current.condition.text}</td>
-                </tr>
-                <tr>
-                    <td>Weather Icon :</td>
-                    <td><img src={dataWeather.current.condition.icon}></img></td>
-                </tr>
-                <tr>
-                    <td>Wind MPH :</td>
-                    <td>{dataWeather.current.wind_mph}</td>
-                </tr>
-                <tr>
-                    <td>Wind Kph :</td>
-                    <td>{dataWeather.current.wind_kph}</td>
-                </tr>
-            </table>
+            </div>
+            <div>
+                <div className="Current-row">
+                    <div className="Current-col">Region :</div>
+                    <div className="Current-col">{dataWeather.location.region}</div>
+                </div>
+                <div className="Current-row">
+                    <div className="Current-col">Coundivy :</div>
+                    <div className="Current-col">{dataWeather.location.country}</div>
+                </div>
+                <div className="Current-row">
+                    <div className="Current-col">Time Zone :</div>
+                    <div className="Current-col">{dataWeather.location.tz_id}</div>
+                </div>
+                <div className="Current-row">
+                    <div className="Current-col">Tempature C :</div>
+                    <div className="Current-col">{dataWeather.current.temp_c}</div>
+                </div>
+                <div className="Current-row">
+                    <div className="Current-col">Tempature F :</div>
+                    <div className="Current-col">{dataWeather.current.temp_f}</div>
+                </div>
+                <div className="Current-row">
+                    <div className="Current-col">Weather Status :</div>
+                    <div className="Current-col">{dataWeather.current.condition.text}</div>
+                </div>
+                <div className="Current-row">
+                    <div className="Current-col">Weather Icon :</div>
+                    <div className="Current-col"><img src={dataWeather.current.condition.icon}></img></div>
+                </div>
+                <div className="Current-row">
+                    <div className="Current-col">Wind MPH :</div>
+                    <div className="Current-col">{dataWeather.current.wind_mph}</div>
+                </div>
+                <div className="Current-row">
+                    <div className="Current-col">Wind Kph :</div>
+                    <div className="Current-col">{dataWeather.current.wind_kph}</div>
+                </div>
+            </div>
 
 
         </div>

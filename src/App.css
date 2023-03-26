@@ -14,6 +14,14 @@ body{
     .current-width {
         width: 90vw;
     }
+    .btn.font {
+        font-size: .5em;
+        font-weight: 500;
+    }
+    .hist_font {
+        font-size: .8em;
+        font-weight: 500;
+    }
 }
 
 /* Small devices (portrait tablets and large phones, 600px and up) */
@@ -26,6 +34,14 @@ body{
     }
     .current-width {
         width: 80vw;
+    }
+    .btn.font {
+        font-size: .85em;
+        font-weight: 600;
+    }
+    .hist_font {
+        font-size: 1em;
+        font-weight: 500;
     }
 }
 
@@ -40,6 +56,14 @@ body{
     .current-width {
         width: 70vw;
     }
+    .btn.font {
+        font-size: .8em;
+        font-weight: 700;
+    }
+    .hist_font {
+        font-size: 1.25em;
+        font-weight: 600;
+    }
 }
 
 /* Large devices (laptops/desktops, 992px and up) */
@@ -52,6 +76,14 @@ body{
     }
     .current-width {
         width: 60vw;
+    }
+    .btn.font {
+        font-size: .85em;
+        font-weight: 800;
+    }
+    .hist_font {
+        font-size: 1.5em;
+
     }
    
 }
@@ -66,6 +98,13 @@ body{
     }
     .current-width {
         width: 60vw;
+    }
+    .btn.font {
+        font-size: .85em;
+    }
+    .hist_font {
+        font-size: 2em;
+
     }
 }
 /*******************************Start of Header & Menu*********************************/
@@ -149,10 +188,52 @@ ul {
 }
 
 /*******************************End of Current WeatherPage*********************************/
+/*******************************Start of Historical WeatherPage*********************************/
+.historical {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+.btn {
+    padding: 1em 2.1em 1.1em;
+    border-radius: 6px;
+    margin: 8px 8px 8px 8px;
+    color: #f2f2f2;
+    background-color: #73868D;
+    display: inline-block;
+    background: #73868D;
+    -webkit-transition: 0.3s;
+    -moz-transition: 0.3s;
+    -o-transition: 0.3s;
+    transition: 0.3s;
+    font-family: sans-serif;
+    text-transform: uppercase;
+    text-align: center;
+    text-decoration: none;
+    -webkit-box-shadow: 0em -0.3rem 0em rgba(0, 0, 0, 0.1) inset;
+    -moz-box-shadow: 0em -0.3rem 0em rgba(0, 0, 0, 0.1) inset;
+    box-shadow: 0em -0.3rem 0em rgba(0, 0, 0, 0.1) inset;
+    position: relative;
+}
+
+.btn:hover, .btn:focus {
+        opacity: 0.8;
+}
+
+.btn:active {
+        -webkit-transform: scale(0.80);
+        -moz-transform: scale(0.80);
+        -ms-transform: scale(0.80);
+        -o-transform: scale(0.80);
+        transform: scale(0.80);
+}
+
+.btn.block {
+        display: block !important;
+}
 
 
-
-
+/*******************************End of Historical WeatherPage*********************************/
 .container {
   display: flex;
   flex-wrap: wrap;

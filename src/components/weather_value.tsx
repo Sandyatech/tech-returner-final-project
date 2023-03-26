@@ -17,7 +17,7 @@ const ComponentCurrentWether: React.FC<propsWeather> = ({ dataWeather }) => {
 
     return (
 
-        <div className="Current">
+        <div className="Current current-width">
             <div className="Current-header">
             <h3>  {dataWeather.location.name} </h3>
             </div>
@@ -27,7 +27,7 @@ const ComponentCurrentWether: React.FC<propsWeather> = ({ dataWeather }) => {
                     <div className="Current-col">{dataWeather.location.region}</div>
                 </div>
                 <div className="Current-row">
-                    <div className="Current-col">Coundivy :</div>
+                    <div className="Current-col">Country :</div>
                     <div className="Current-col">{dataWeather.location.country}</div>
                 </div>
                 <div className="Current-row">

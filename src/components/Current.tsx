@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import ComponentCurrentWether from "./weather_value"
-import {RootCurrent} from "../components/interface_weather" ;
+import { RootCurrent } from "../components/interface_weather";
+import { fetchData } from "../services/httpsServices";
 
 
-function CurrentWeather(input_location: any) {
+function CurrentWeather() {
     const options = {
         method: 'GET',
         headers: {
@@ -11,35 +12,51 @@ function CurrentWeather(input_location: any) {
             'X-RapidAPI-Host': 'weatherapi-com.p.rapidapi.com'
         }
     };
-    const [rootValue, setRoot] = useState<any>([]);
+    const [rootValue, setRoot] = useState<RootCurrent>();
+
     const [errormessageApp, seterrormessageApp] = useState<string | undefined>();
-    const fetchWeather = async () => {
+    // const fetchWeather = async () => {
 
-        try {
+    //     try {
 
-            const apiResponse = await fetch(`https://weatherapi-com.p.rapidapi.com/current.json?q=${input_location}`, options);
-            if (apiResponse.status === 200) {
-                
-                const dataapiResponse = await apiResponse.json() as { data: RootCurrent[] }
-                setRoot(dataapiResponse);
+    //         const apiResponse = await fetch(`https://weatherapi-com.p.rapidapi.com/current.json?q=${input_location}`, options);
+    //         if (apiResponse.status === 200) {
 
-            } else if (apiResponse.status === 500) {
+    //             const dataapiResponse = await apiResponse.json() as { data: RootCurrent[] }
+    //             setRoot(dataapiResponse);
 
-                seterrormessageApp("Oops... something went wrong, try again 🤕");
+    //         } else if (apiResponse.status === 500) {
 
-            } else if (apiResponse.status === 418) {
+    //             seterrormessageApp("Oops... something went wrong, try again 🤕");
 
-                seterrormessageApp("418 I'm a tea pot 🫖 , silly");
+    //         } else if (apiResponse.status === 418) {
 
+    //             seterrormessageApp("418 I'm a tea pot 🫖 , silly");
+
+    //         };
+
+    //     } catch (error) {
+    //         console.log(" this error occured : ->->-> " + error + " <-<-<- : this error occured ");
+
+    //     };
+    // };
+
+    useEffect(() => {
+        const getData = async () => {
+            const params = {
+                // TODO2: useContent
+                q: "London",
             };
+            const response = (await fetchData({
+                responseType: "RootCurrent",
+                params,
+            })) as RootCurrent;
 
-        } catch (error) {
-            console.log(" this error occured : ->->-> " + error + " <-<-<- : this error occured ");
-
+            // TODO2: error handling
+            setRoot(response);
         };
-    };
-
-    useEffect(() => { fetchWeather() }, []);
+        getData();
+    }, []);
     return (
 
         <>

@@ -20,7 +20,7 @@ function App() {
                 <hr />
                 <Router />
             </BrowserRouter>
-            <div className="App-header App-footer">&#169; 2023 ReactTsGroup All Rights Reserved</div>
+            <div className="App-footer footer_font">&#169; 2023 ReactTsGroup All Rights Reserved</div>
         </ErrorBoundary>
     );
 }

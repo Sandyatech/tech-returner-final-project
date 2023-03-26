@@ -119,13 +119,13 @@ const MultiaxisHistoryWeathe: React.FC = () => {
     };
 
     return (
-        <div style={{ display: "flex", flexDirection: "column", maxHeight: "700px", alignItems: "center" }}>
-            <div style={{ display: "flex", flexDirection: "row", justifyContent: "space-around" }}>
-                <button style={{ marginRight: "10%", width: "10rem" }} onClick={() => buttonsHandler(1)}>
+        <div>
+            <div className="historical">
+                <button className="btn font" onClick={() => buttonsHandler(1)}>
                     Prev. Day
                 </button>
-                <h2 style={{ textAlign: "center" }}>History Weather on {date}</h2>
-                <button style={{ marginLeft: "10%", width: "10rem" }} onClick={() => buttonsHandler(-1)}>
+                <div className="hist_font">History Weather on {date}</div>
+                <button className="btn font" onClick={() => buttonsHandler(-1)}>
                     Next Day
                 </button>
             </div>

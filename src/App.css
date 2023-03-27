@@ -247,6 +247,7 @@ ul {
 /*******************************Start of Health Page*********************************/
 .health__message {
     text-align: center;
+    font-size: 2em;
 }
 .health__background::before {
     background-image: url("images/good-weather.jpg");

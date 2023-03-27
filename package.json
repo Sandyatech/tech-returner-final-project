@@ -52,5 +52,8 @@
         "moduleNameMapper": {
             "^axios$": "axios/dist/axios.js"
         }
+    },
+    "devDependencies": {
+        "msw": "^1.2.1"
     }
 }

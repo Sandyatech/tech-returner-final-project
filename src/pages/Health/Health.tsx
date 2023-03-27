@@ -23,9 +23,9 @@ const Health: React.FC = () => {
   checkServerHealth();
 
   return (
-    <div className="App">
+    <div className="App health__background">
       <h1>API Health Check</h1>
-      <p className="healthMessage">{healthMessage}</p>
+      <p className="health__message">{healthMessage}</p>
     </div>
   );
 };

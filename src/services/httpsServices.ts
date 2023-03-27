@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, { AxiosResponse, AxiosError } from "axios";
 import { RootCurrent, RootForecast, RootHistroy } from "../types/types_weather";
 import { ResponseType } from "../types/types_weather";
 import { headers, CURRENT_URL, FORECAST_URL, HISTORY_URL } from "./api";
@@ -12,34 +12,50 @@ interface FetchDataProps {
 // urlPath: string;
 
 export async function fetchData({ responseType, params }: FetchDataProps) {
-    switch (responseType) {
-        case "RootCurrent": {
-            const response = await axios.get<RootCurrent>(CURRENT_URL, {
-                headers: headers,
-                params: params,
-            });
-            // TODO2: error handling
-            return response.data as RootCurrent;
+    try {
+        switch (responseType) {
+            case "RootCurrent": {
+                const response: AxiosResponse = await axios.get<RootCurrent>(CURRENT_URL, {
+                    headers: headers,
+                    params: params,
+                });
+                return response.data as RootCurrent;
+            }
+            case "RootForecast": {
+                const response = await axios.get<RootForecast>(FORECAST_URL, {
+                    headers: headers,
+                    params: params,
+                });
+                return response.data as RootForecast;
+            }
+            case "RootHistroy": {
+                const response = await axios.get<RootHistroy>(HISTORY_URL, {
+                    headers: headers,
+                    params: params,
+                });
+                return response.data as RootHistroy;
+            }
+            default:
+                throw new Error(`Unknown response type: ${responseType}`);
         }
-        case "RootForecast": {
-            const response = await axios.get<RootForecast>(FORECAST_URL, {
-                headers: headers,
-                params: params,
-            });
-            // TODO2: error handling
-            return response.data as RootForecast;
+    } catch (err) {
+        const error = err as Error | AxiosError;
+        if (axios.isAxiosError(error)) {
+            if (error.response) {
+                if (error.response.status === 404) {
+                    console.log("404 Not Found");
+                } else {
+                    console.log(error.response.data);
+                    console.log(error.response.status);
+                    console.log(error.response.headers);
+                }
+            } else if (error.request) {
+                console.log(error.request);
+            } else {
+                console.log("Error", error.message);
+            }
         }
-        case "RootHistroy": {
-            const response = await axios.get<RootHistroy>(HISTORY_URL, {
-                headers: headers,
-                params: params,
-            });
-            // TODO2: error handling
-            return response.data as RootHistroy;
-        }
-
-        default:
-            throw new Error(`Unknown response type: ${responseType}`);
+        console.log("Native Error", error);
     }
 }
 

@@ -1,12 +1,11 @@
 import React from "react";
-import { CurrentWeatherData } from "./types";
+import { CurrentWeatherData } from "../../files_backup/types";
 
 interface CurrentWeatherProps {
     currentWeather?: CurrentWeatherData;
     locationName: string;
     localTime: string;
 }
-
 
 const CurrentWeather: React.FC<CurrentWeatherProps> = ({ currentWeather, locationName, localTime }) => {
     return (

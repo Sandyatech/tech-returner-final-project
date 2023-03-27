@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import moment from "moment";
-import { RootHistroy, Forecastday } from "../../components/interface_weather";
+import { RootHistroy, Forecastday } from "../../types/types_weather";
 import { fetchData } from "../../services/httpsServices";
 import { dateValidator } from "../../utils/validator";
 import { createConsecutiveArray } from "../../utils/utils";

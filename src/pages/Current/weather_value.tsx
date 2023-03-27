@@ -1,25 +1,19 @@
 import React from "react";
 
-import { RootCurrent, Location, CurrentWeatherData } from "./interface_weather" ;
-
-
+import { RootCurrent, Location, CurrentWeatherData } from "../../types/types_weather";
 
 export interface propsWeather {
-
     dataWeather: {
         location: Location;
-        current: CurrentWeatherData
-    }
+        current: CurrentWeatherData;
+    };
 }
 
-
 const ComponentCurrentWether: React.FC<propsWeather> = ({ dataWeather }) => {
-
     return (
-
         <div className="Current current-width">
             <div className="Current-header">
-            <h3>  {dataWeather.location.name} </h3>
+                <h3> {dataWeather.location.name} </h3>
             </div>
             <div>
                 <div className="Current-row">
@@ -48,7 +42,9 @@ const ComponentCurrentWether: React.FC<propsWeather> = ({ dataWeather }) => {
                 </div>
                 <div className="Current-row">
                     <div className="Current-col">Weather Icon :</div>
-                    <div className="Current-col"><img src={dataWeather.current.condition.icon}></img></div>
+                    <div className="Current-col">
+                        <img src={dataWeather.current.condition.icon}></img>
+                    </div>
                 </div>
                 <div className="Current-row">
                     <div className="Current-col">Wind MPH :</div>
@@ -59,12 +55,8 @@ const ComponentCurrentWether: React.FC<propsWeather> = ({ dataWeather }) => {
                     <div className="Current-col">{dataWeather.current.wind_kph}</div>
                 </div>
             </div>
-
-
         </div>
-
     );
-
 };
 
 export default ComponentCurrentWether;

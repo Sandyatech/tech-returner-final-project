@@ -12,8 +12,7 @@ const Router: React.FC = () => (
     <>
         <Routes>
             <Route path="/" element={<MainLayout />}>
-                <Route index element={<Home />}></Route>
-                <Route path="/current" element={<CurrentWeather />}></Route>
+                <Route index element={<CurrentWeather />}></Route>                
                 <Route path="/favourites" element={<Favourites />}></Route>
                 <Route path="/forecast" element={<Forecast />}></Route>
                 <Route path="/historical" element={<Historical />}></Route>

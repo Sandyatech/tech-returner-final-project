@@ -11,14 +11,9 @@ function App() {
                 <ul className="App-header">
                     <li>
                         <Link to="/" className="menu menu_font">
-                            Home
-                        </Link>
-                    </li>
-                    <li>
-                        <Link to="/Current" className="menu menu_font">
                             Current
                         </Link>
-                    </li>
+                    </li>                  
                     <li>
                         <Link to="/Favourites" className="menu menu_font">
                             Favourites

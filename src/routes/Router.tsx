@@ -1,12 +1,12 @@
 import { Routes, Route } from "react-router-dom";
-import MainLayout from "./MainLayout";
-import Home from "./Home";
-import Favourites from "./Favourites";
-import CurrentWeather from "./Current";
-import Forecast from "./Forecast";
+import MainLayout from "../components/MainLayout";
+import Home from "../pages/Home/Home";
+import Favourites from "../pages/Favourites/Favourites";
+import CurrentWeather from "../pages/Current/Current";
+import Forecast from "../pages/Forscast/Forecast";
 import Historical from "../pages/Historical/Historical";
-import Health from "./Health";
-import Error404 from "./Error404";
+import Health from "../pages/Health/Health";
+import Error404 from "../components/Error404";
 
 const Router: React.FC = () => (
     <>

@@ -1,5 +1,5 @@
 import { render, screen, waitFor } from "@testing-library/react";
-import user from "@testing-library/user-event";
+// import user from "@testing-library/user-event";
 import Historical from "./Historical";
 
 test("renders title", () => {

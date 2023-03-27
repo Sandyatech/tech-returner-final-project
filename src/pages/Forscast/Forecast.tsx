@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
-import "../App.css";
-import { WeatherData, CurrentWeatherData, LocationData } from "./types";
+import "../../App.css";
+import { WeatherData, CurrentWeatherData, LocationData } from "../../files_backup/types";
 import WeatherCard from "./WeatherCard";
 import CurrentWeather from "./CurrentWeather";
 import LocationForm from "./LocationForm";
@@ -17,8 +17,8 @@ function Forecast() {
             url: "https://weatherapi-com.p.rapidapi.com/forecast.json",
             params: { q: location, days: "3" },
             headers: {
-                'X-RapidAPI-Key': '3ef5c4e138msh91644e12beb4158p1e5cb6jsn1b6b43ab6590',
-                'X-RapidAPI-Host': 'weatherapi-com.p.rapidapi.com'
+                "X-RapidAPI-Key": "3ef5c4e138msh91644e12beb4158p1e5cb6jsn1b6b43ab6590",
+                "X-RapidAPI-Host": "weatherapi-com.p.rapidapi.com",
             },
         };
 
@@ -56,4 +56,3 @@ function Forecast() {
 }
 
 export default Forecast;
-

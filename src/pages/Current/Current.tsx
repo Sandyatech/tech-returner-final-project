@@ -1,16 +1,15 @@
 import React, { useEffect, useState } from "react";
-import ComponentCurrentWether from "./weather_value"
-import { RootCurrent } from "../components/interface_weather";
-import { fetchData } from "../services/httpsServices";
-
+import ComponentCurrentWether from "./weather_value";
+import { RootCurrent } from "../../types/types_weather";
+import { fetchData } from "../../services/httpsServices";
 
 function CurrentWeather() {
     const options = {
-        method: 'GET',
+        method: "GET",
         headers: {
-            'X-RapidAPI-Key': '3ef5c4e138msh91644e12beb4158p1e5cb6jsn1b6b43ab6590',
-            'X-RapidAPI-Host': 'weatherapi-com.p.rapidapi.com'
-        }
+            "X-RapidAPI-Key": "3ef5c4e138msh91644e12beb4158p1e5cb6jsn1b6b43ab6590",
+            "X-RapidAPI-Host": "weatherapi-com.p.rapidapi.com",
+        },
     };
     const [rootValue, setRoot] = useState<RootCurrent>();
 
@@ -58,13 +57,11 @@ function CurrentWeather() {
         getData();
     }, []);
     return (
-
         <>
             {rootValue && <ComponentCurrentWether dataWeather={rootValue} />}
 
             {errormessageApp && <h2> {` ERROR :  ${errormessageApp}`} </h2>}
         </>
-
     );
 }
 export default CurrentWeather;

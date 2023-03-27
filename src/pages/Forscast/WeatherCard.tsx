@@ -1,12 +1,10 @@
 import React from "react";
-import { WeatherData } from "./types";
-import "../App.css";
+import { WeatherData } from "../../files_backup/types";
+import "../../App.css";
 
 interface WeatherCardProps {
     day: WeatherData;
-
 }
-
 
 const WeatherCard: React.FC<WeatherCardProps> = ({ day }) => {
     return (

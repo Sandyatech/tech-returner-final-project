@@ -11,7 +11,7 @@ import {
     Tooltip,
     Legend,
 } from "chart.js";
-import { Forecastday } from "../../components/interface_weather";
+import { Forecastday } from "../../types/types_weather";
 
 interface MultiAxisLineChartProps {
     labelArray: number[];

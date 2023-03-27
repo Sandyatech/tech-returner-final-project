@@ -243,6 +243,13 @@ ul {
 
 
 /*******************************End of Historical WeatherPage*********************************/
+
+/*******************************Start of Health Page*********************************/
+.healthMessage {
+    text-align: center;
+}
+/*******************************End of Health Page*********************************/
+
 .container {
   display: flex;
   flex-wrap: wrap;

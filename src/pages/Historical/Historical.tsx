@@ -4,6 +4,7 @@ import { RootHistroy, Forecastday } from "../../types/types_weather";
 import { fetchData } from "../../services/httpsServices";
 import { dateValidator } from "../../utils/validator";
 import { createConsecutiveArray } from "../../utils/utils";
+import { useCurrentLocation } from "../../hooks/CurrentLocationContext";
 import MultiAxisLineChart from "./MultiAxisLineChart";
 
 const Historical: React.FC = () => {
@@ -11,6 +12,8 @@ const Historical: React.FC = () => {
     const [date, setDate] = useState<String>("");
     const [dateSubtract, setDateSubtract] = useState<number>(1);
     const [labelArray, setLabelArray] = useState<number[]>([]);
+
+    const {currentLocation, setCurrentLocation} = useCurrentLocation();
 
     useEffect(() => {
         const dateBefore = moment().subtract(dateSubtract, "days").format("YYYY-MM-DD");
@@ -22,7 +25,7 @@ const Historical: React.FC = () => {
             const getData = async () => {
                 const params = {
                     // TODO2: useContent
-                    q: "London",
+                    q: currentLocation,
                     dt: date,
                     lang: "en",
                 };
@@ -37,7 +40,7 @@ const Historical: React.FC = () => {
             };
             getData();
         }
-    }, [date]);
+    }, [date, currentLocation]);
 
     const createLabelArray = () => {
         dateSubtract === 0
@@ -59,7 +62,7 @@ const Historical: React.FC = () => {
                 <button className="btn font" onClick={() => buttonsHandler(1)}>
                     Prev. Day
                 </button>
-                <div className="hist_font">History Weather on {date}</div>
+                <div className="hist_font">Historical weather for {currentLocation} on {date}</div>
                 <button className="btn font" onClick={() => buttonsHandler(-1)}>
                     Next Day
                 </button>

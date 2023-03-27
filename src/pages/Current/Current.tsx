@@ -3,6 +3,7 @@ import ComponentCurrentWether from "./weather_value";
 import { RootCurrent } from "../../types/types_weather";
 import { fetchData } from "../../services/httpsServices";
 import LocationForm from "./CurrentForm"
+import { useCurrentLocation } from "../../hooks/CurrentLocationContext";
 
 function CurrentWeather() {
     const options = {
@@ -13,6 +14,7 @@ function CurrentWeather() {
         },
     };
     const [rootValue, setRoot] = useState<RootCurrent>();
+    const {currentLocation, setCurrentLocation} = useCurrentLocation();
 
     const [errormessageApp, seterrormessageApp] = useState<string | undefined>();
     // const fetchWeather = async () => {

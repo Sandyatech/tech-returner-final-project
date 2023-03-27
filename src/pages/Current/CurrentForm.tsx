@@ -1,11 +1,13 @@
 import React from "react";
+import { useCurrentLocation } from "../../hooks/CurrentLocationContext";
 
 interface LocationFormProps {
     handleSubmit: (location: string) => Promise<void>;
 }
 
 const LocationForm: React.FC<LocationFormProps> = ({ handleSubmit }) => {
-    const [location, setLocation] = React.useState("");
+    //const [location, setLocation] = React.useState("");
+    const {currentLocation: location, setCurrentLocation: setLocation} = useCurrentLocation();
 
     const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();

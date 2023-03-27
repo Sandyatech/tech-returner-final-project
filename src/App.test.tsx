@@ -8,7 +8,7 @@ test('App renders and user can navigate', async () => {
     const user = userEvent.setup();
   
     // default route   
-    expect(await screen.findByText(/Region/i)).toBeInTheDocument();    
+    expect(await screen.findByText(/Get Location Weather/i)).toBeInTheDocument();    
 
     // // Forecast route
     act(() => {

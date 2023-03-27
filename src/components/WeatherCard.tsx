@@ -10,20 +10,19 @@ interface WeatherCardProps {
 
 const WeatherCard: React.FC<WeatherCardProps> = ({ day }) => {
     return (
-        <li key={day.date} className="card">
-            <p>Date: {day.date}</p>
+        <div key={day.date} className="">
+            {/* <p>Date: {day.date}</p>
             <p>Max Temp: {day.day.maxtemp_c}</p>
             <p>Min Temp: {day.day.mintemp_c}</p>
             <p>Sunrise: {day.astro.sunrise}</p>
             <p>Sunset: {day.astro.sunset}</p>
-
             <p>Condition: {day.day.condition.text}</p>
-            <img src={day.day.condition.icon} alt={day.day.condition.text} />
+            <img src={day.day.condition.icon} alt={day.day.condition.text} /> */}
 
             <div className="hourly">
-                <h3>Hourly Weather:</h3>
+                {/* <h3>Hourly Weather:</h3> */}
                 {day.hour.map((hour) => (
-                    <div key={hour.time}>
+                    <div key={hour.time} className="card">
                         <p>Time: {hour.time}</p>
                         <p>Temp: {hour.temp_c}</p>
                         <p>Condition: {hour.condition.text}</p>
@@ -31,7 +30,7 @@ const WeatherCard: React.FC<WeatherCardProps> = ({ day }) => {
                     </div>
                 ))}
             </div>
-        </li>
+        </div>
     );
 };
 

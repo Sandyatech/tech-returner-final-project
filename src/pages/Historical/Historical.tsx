@@ -7,6 +7,7 @@ import { createConsecutiveArray } from "../../utils/utils";
 import { useCurrentLocation } from "../../hooks/CurrentLocationContext";
 import MultiAxisLineChart from "./MultiAxisLineChart";
 import AlertMui from "../../components/AlertMui";
+import { Button } from "@mui/material";
 
 const Historical: React.FC = () => {
     const [weatherData, setWeatherData] = useState<Forecastday>(); // note: named as Forecastday from API but actually history data
@@ -53,8 +54,13 @@ const Historical: React.FC = () => {
             setDateSubtract(dateSubtract + input);
         } else {
             // alert("Can only show pass 7 days weather data history!");
-            return <AlertMui openAlert={openAlert} setOpenAlert={setOpenAlert} />;
+            setOpenAlert(true);
+            // return <AlertMui openAlert={openAlert} setOpenAlert={setOpenAlert} />;
         }
+    };
+
+    const handleClick = () => {
+        setOpenAlert(true);
     };
 
     return (
@@ -70,8 +76,14 @@ const Historical: React.FC = () => {
                     Next Day
                 </button>
             </div>
-
             {weatherData && <MultiAxisLineChart labelArray={labelArray} weatherData={weatherData} />}
+            {openAlert && (
+                <AlertMui
+                    openAlert={openAlert}
+                    setOpenAlert={setOpenAlert}
+                    message="Can only show pass 7 days weather data history!"
+                />
+            )}
         </div>
     );
 };

@@ -4,7 +4,7 @@ import Historical from "./Historical";
 
 test("renders title", () => {
     render(<Historical />);
-    const title = screen.getByText(/History Weather on/i);
+    const title = screen.getByText(/Historical weather for/i);
     expect(title).toBeInTheDocument();
 });
 
@@ -19,7 +19,8 @@ test("renders buttons", () => {
 test("renders updated chart title after API request", async () => {
     render(<Historical />);
     await waitFor(() => {
-        const title = screen.getByText(/History Weather on 202/i);
+        // note: Historical weather for {city} on {date} (2023-03-26)
+        const title = screen.getByText(/on 202/i);
         expect(title).toBeInTheDocument();
     });
 });

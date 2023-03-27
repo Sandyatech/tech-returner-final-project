@@ -70,10 +70,9 @@ const MultiAxisLineChart: React.FC<MultiAxisLineChartProps> = ({ labelArray, wea
             },
         },
     };
-
-    return (<div className="hist_chart">
-        <Line data={data} options={options} />;
-    </div>);
+    return (
+        <Line className="hist_chart" data={data} options={options} />
+    );
 };
 
 export default MultiAxisLineChart;

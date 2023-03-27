@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import ComponentCurrentWether from "./weather_value";
 import { RootCurrent } from "../../types/types_weather";
 import { fetchData } from "../../services/httpsServices";
+import LocationForm from "./CurrentForm"
 
 function CurrentWeather() {
     const options = {
@@ -40,24 +41,26 @@ function CurrentWeather() {
     //     };
     // };
 
-    useEffect(() => {
-        const getData = async () => {
-            const params = {
-                // TODO2: useContent
-                q: "London",
-            };
-            const response = (await fetchData({
-                responseType: "RootCurrent",
-                params,
-            })) as RootCurrent;
-
-            // TODO2: error handling
-            setRoot(response);
+    // useEffect(() => {
+    const getData = async (location: string) => {
+        const params = {
+            // TODO2: useContent
+            q: location
         };
-        getData();
-    }, []);
+        const response = (await fetchData({
+            responseType: "RootCurrent",
+            params,
+        })) as RootCurrent;
+
+        // TODO2: error handling
+        setRoot(response);
+    };
+
+    // }, []);
+
     return (
         <>
+            <LocationForm handleSubmit={getData} />
             {rootValue && <ComponentCurrentWether dataWeather={rootValue} />}
 
             {errormessageApp && <h2> {` ERROR :  ${errormessageApp}`} </h2>}

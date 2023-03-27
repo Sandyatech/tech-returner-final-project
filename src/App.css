@@ -247,63 +247,53 @@ ul {
   display: flex;
   flex-wrap: wrap;
 }
-.forecast-container {
-    
+  .hourly {
     display: flex;
-    flex-wrap: wrap;
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
-  
-  .forecast-container {
-    display: flex;
+    flex-wrap: nowrap;
     overflow-x: auto;
   }
   
-  .cards-list {
-    display: flex;
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
-  
   .card {
-    width: 250px;
-    margin-right: 20px;
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
-    transition: transform 0.2s ease-in-out;
+    flex-basis: calc(100% / 24);
+    text-align: center;
+    background-color: #e5f6ff;
+    border: 1px solid #b3e3ff;
+    border-radius: 5px;
+    margin-right: 10px;
+    padding: 10px;
+
+    
   }
-  
   .card img {
-    display: block;
-    margin: 0 auto 10px;
-    max-width: 100%;
-    height: auto;
-    border-radius: 10px;
-    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
-  }
-  
-  .card h3 {
-    font-size: 1.2em;
-    margin-top: 0;
+    height: 50px;
+    width: 50px;
+    margin-top: 10px;
     margin-bottom: 10px;
   }
   
   .card p {
-    font-size: 1em;
-    margin-top: 0;
-    margin-bottom: 0;
+    margin: 0;
+    padding: 0;
+    font-size: 16px;
+    font-weight: bold;
   }
   
+  .card p:not(:last-child) {
+    margin-bottom: 5px;
+  }
+  
+  .card p:nth-child(3) {
+    font-weight: normal;
+    margin-top: 5px;
+  }
+
   .card:hover {
-    /* transform: scale(1.1); */
+    transform: scale(1.1);
     box-shadow: 0 0 40px -10px rgba(0, 0, 0, 0.1)
   }
   
+
+
 .form-container {
   margin-bottom: 20px;
 }

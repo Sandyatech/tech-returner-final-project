@@ -8,6 +8,18 @@ export interface WeatherData {
             icon: string;
         };
     };
+    astro: {
+        sunrise: string;
+        sunset: string;
+    };
+    hour: {
+        time: string;
+        temp_c: number;
+        condition: {
+            text: string;
+            icon: string;
+        };
+    }[];
 }
 
 export interface CurrentWeatherData {

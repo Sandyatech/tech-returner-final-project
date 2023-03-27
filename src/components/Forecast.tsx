@@ -33,13 +33,17 @@ function Forecast() {
             <LocationForm handleSubmit={handleSubmit} />
             {locationData && (
                 <>
-
-                    <ul className="forecast-container">
-                        {forecast &&
-                            forecast.forecastday.map((day) => (
-                                <WeatherCard day={day} key={day.date} />
-                            ))}
-                    </ul>
+                    <h1>{locationData.name} Weather Forecast</h1>
+                    <div className="forecast-container">
+                        <ul className="cards-list">
+                            {forecast &&
+                                forecast.forecastday.map((day) => (
+                                    <li key={day.date} className="card">
+                                        <WeatherCard day={day} />
+                                    </li>
+                                ))}
+                        </ul>
+                    </div>
                     <CurrentWeather
                         currentWeather={currentWeather}
                         locationName={locationData.name}

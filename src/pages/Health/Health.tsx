@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { CURRENT_URL } from "../../services/aaaaaaaaaa";
-import { options } from "../../services/aaaaaaaaaa";
+import { CURRENT_URL } from "../../services/api";
+import { options } from "../../services/api";
 
 const Health: React.FC = () => {
     const [healthMessage, setHealthMessage] = useState<string>("");

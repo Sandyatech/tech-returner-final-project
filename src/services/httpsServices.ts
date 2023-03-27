@@ -1,7 +1,7 @@
 import axios from "axios";
 import { RootCurrent, RootForecast, RootHistroy } from "../types/types_weather";
 import { ResponseType } from "../types/types_weather";
-import { headers, CURRENT_URL, FORECAST_URL, HISTORY_URL } from "./aaaaaaaaaa";
+import { headers, CURRENT_URL, FORECAST_URL, HISTORY_URL } from "./api";
 
 // type ResponseType = "RootCurrent" | "RootForecast" | "RootHistroy";
 

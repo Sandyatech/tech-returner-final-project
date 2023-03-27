@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Line } from "react-chartjs-2";
 import {
     Chart as ChartJS,
@@ -71,7 +71,9 @@ const MultiAxisLineChart: React.FC<MultiAxisLineChartProps> = ({ labelArray, wea
         },
     };
 
-    return <Line data={data} options={options} />;
+    return (<div className="hist_chart">
+        <Line data={data} options={options} />;
+    </div>);
 };
 
 export default MultiAxisLineChart;

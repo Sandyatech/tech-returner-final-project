@@ -75,7 +75,6 @@ const Favourites = () => {
             responseType: "RootCurrent",
             params,
         })) as RootCurrent;
-        console.log(response);
         setRoot(response);
     };
 
@@ -87,7 +86,7 @@ const Favourites = () => {
             <form onSubmit={handleSubmit} >
                 <input
                     type="text"
-                    placeholder="Enter location"
+                    placeholder="Enter Favourite Location"
                     value={loc}
                     onChange={(event) => setLoc(event.target.value)}
                 />

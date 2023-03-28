@@ -7,6 +7,7 @@ import { createConsecutiveArray } from "../../utils/utils";
 import { useCurrentLocation } from "../../hooks/CurrentLocationContext";
 import MultiAxisLineChart from "./MultiAxisLineChart";
 import AlertMui from "../../components/AlertMui";
+import { getCurrentLocationFromLocalStorage } from "../../utils/storage";
 
 const Historical: React.FC = () => {
     const [weatherData, setWeatherData] = useState<Forecastday>(); // note: named as Forecastday from API but actually history data
@@ -14,8 +15,14 @@ const Historical: React.FC = () => {
     const [dateSubtract, setDateSubtract] = useState<number>(1);
     const [labelArray, setLabelArray] = useState<number[]>([]);
     const [openAlert, setOpenAlert] = React.useState(false);
+    const [cityDisplay, setCityDisplay] = useState<String>("");
 
     const { currentLocation, setCurrentLocation } = useCurrentLocation();
+
+    useEffect(() => {
+        const localStorage_currentLocation = getCurrentLocationFromLocalStorage();
+        localStorage_currentLocation ? setCurrentLocation(localStorage_currentLocation) : setCurrentLocation("London");
+    }, []);
 
     useEffect(() => {
         const dateBefore = moment().subtract(dateSubtract, "days").format("YYYY-MM-DD");
@@ -37,6 +44,7 @@ const Historical: React.FC = () => {
 
                 createLabelArray();
                 setWeatherData(response?.forecast?.forecastday[0]);
+                setCityDisplay(response?.location?.name);
             };
             getData();
         }
@@ -63,7 +71,7 @@ const Historical: React.FC = () => {
                     Prev. Day
                 </button>
                 <div className="hist_font">
-                    Historical weather for {currentLocation} on {date}
+                    Historical weather for {cityDisplay} on {date}
                 </div>
                 <button className="btn font" onClick={() => buttonsHandler(-1)}>
                     Next Day

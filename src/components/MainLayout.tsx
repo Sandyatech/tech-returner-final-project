@@ -3,7 +3,7 @@ import { useState } from "react";
 import CurrentLocationContext from "../hooks/CurrentLocationContext";
 
 const MainLayout: React.FC = () => {
-  const [currentLocation, setCurrentLocation] = useState<string>("London");
+  const [currentLocation, setCurrentLocation] = useState<string>("");
   return (
     <>
       <main>

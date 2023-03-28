@@ -1,82 +1,79 @@
-import React, { FormEvent, useState, useEffect } from "react";
-import axios from "axios";
-import CurrentWeather from "../Current/Current";
+import React, { useState, useEffect } from "react";
+
 import { RootCurrent, Location, CurrentWeatherData } from "../../types/types_weather";
+import { fetchData } from "../../services/httpsServices";
+import ComponentCurrentWether from "../Current/weather_value"
 
-// const Favourites : React.FC = () => <></>;
 
-interface IFormInputs {
-    location: string;
-}
 const Favourites = () => {
-    const [location, setLocation] = useState("");
-    const [favouriteLocation, setfavouriteLocation] = useState<{ favouriteCurrentLocation: RootCurrent[] }>();
+    const [loc, setLoc] = useState<string>('');
+    const [root, setRoot] = useState<RootCurrent>();
+    const [favourites, setFavourites] = useState<Array<RootCurrent | undefined>>([]);
+    const [fav, setFav] = useState<boolean>(false);
 
+    
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
+        
+        getData(loc);
+    
+    };
+    useEffect(() => {
+        if (favourites) {
+            const boxes = getClassList(); 
+            boxes.map(box => {
+                box.classList.remove('current-width');
+                box.classList.add('favourites');
+            });
+
+        }
+    }, [favourites])
+    const getClassList = () => {
+        return(Array.from(document.getElementsByClassName('current-width')));
+    }
+    useEffect(() => {
+        if (root) {
+            const prods = [...favourites,root].filter(
+                (value, index, array) =>
+                    index == array.findIndex(item => item?.location.name == value?.location.name));
+            setFavourites(prods);                  
+            setFav(true);
+        }
+
+    },[root]);
+
+
+    const getData = async (location:string) => {
+        const params = {
+            q: location
+        };
+        const response = (await fetchData({
+            responseType: "RootCurrent",
+            params,
+        })) as RootCurrent;
+        console.log(response);
+        setRoot(response);
     };
 
-    useEffect(() => {
-        CurrentWeather();
-    }, []);
 
     return (
         <div>
-            <form onSubmit={handleSubmit} className="form-container">
+            <div className="form-container Current favourites-width">
+            <form onSubmit={handleSubmit} >
                 <input
                     type="text"
                     placeholder="Enter location"
-                    value={location}
-                    onChange={(event) => setLocation(event.target.value)}
+                    value={loc}
+                    onChange={(event) => setLoc(event.target.value)}
                 />
                 <button type="submit">Get Favourite Location</button>
-            </form>
-            {favouriteLocation && (
-                <ul className="container">
-                    {favouriteLocation.favouriteCurrentLocation.map((dataWeather: RootCurrent) => (
-                        <table>
-                            <tr>
-                                <td>Region :</td>
-                                <td>{dataWeather.location.region}</td>
-                            </tr>
-                            <tr>
-                                <td>Country :</td>
-                                <td>{dataWeather.location.country}</td>
-                            </tr>
-                            <tr>
-                                <td>Time Zone :</td>
-                                <td>{dataWeather.location.tz_id}</td>
-                            </tr>
-                            <tr>
-                                <td>Tempature C :</td>
-                                <td>{dataWeather.current.temp_c}</td>
-                            </tr>
-                            <tr>
-                                <td>Tempature F :</td>
-                                <td>{dataWeather.current.temp_f}</td>
-                            </tr>
-                            <tr>
-                                <td>Weather Status :</td>
-                                <td>{dataWeather.current.condition.text}</td>
-                            </tr>
-                            <tr>
-                                <td>Weather Icon :</td>
-                                <td>
-                                    <img src={dataWeather.current.condition.icon}></img>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Wind MPH :</td>
-                                <td>{dataWeather.current.wind_mph}</td>
-                            </tr>
-                            <tr>
-                                <td>Wind Kph :</td>
-                                <td>{dataWeather.current.wind_kph}</td>
-                            </tr>
-                        </table>
-                    ))}
-                </ul>
-            )}
+                </form>
+            </div>
+            <div className="favourites_container">
+            {(fav==true) && (favourites.map((favourite, index) =>
+                <ComponentCurrentWether key={index} dataWeather={{ location: favourite?.location as Location, current: favourite?.current as CurrentWeatherData }} />
+                ))}
+            </div>
         </div>
     );
 };

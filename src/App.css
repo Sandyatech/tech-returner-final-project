@@ -28,6 +28,9 @@ body{
         font-size: .8em;
         font-weight: 500;
     }
+    .favourites-width {
+        width: 90%;
+    }
 }
 
 /* Small devices (portrait tablets and large phones, 600px and up) */
@@ -48,6 +51,9 @@ body{
     .hist_font {
         font-size: 1em;
         font-weight: 500;
+    }
+    .favourites-width {
+        width: 60%;
     }
 }
 
@@ -70,6 +76,9 @@ body{
         font-size: 1.25em;
         font-weight: 600;
     }
+    .favourites-width {
+        width: 50%;
+    }
 }
 
 /* Large devices (laptops/desktops, 992px and up) */
@@ -91,6 +100,9 @@ body{
         font-size: 1.5em;
 
     }
+    .favourites-width {
+        width: 37%;
+    }
    
 }
 
@@ -111,6 +123,9 @@ body{
     .hist_font {
         font-size: 2em;
 
+    }
+    .favourites-width {
+        width: 30%;
     }
 }
 /*******************************Start of Header & Menu*********************************/
@@ -198,6 +213,24 @@ ul {
 }
 
 /*******************************End of Current WeatherPage*********************************/
+/*******************************Start of favourites Page*********************************/
+.favourites_form{
+    display:block;
+    margin-left:auto;
+    margin-right:auto;
+    justify-items:center;
+}
+.favourites_container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+.favourites {
+    width: 30%;
+    min-width:300px;
+}
+
+/*******************************End of favourites Page*********************************/
 /*******************************Start of Historical WeatherPage*********************************/
 .historical {
     display: flex;

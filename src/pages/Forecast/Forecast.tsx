@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from "react";
-// import axios from "axios";
 import "../../App.css";
 import { Forecastday, CurrentWeatherData, Location, RootForecast } from "../../types/types_weather";
 import WeatherCard from "./WeatherCard";
 import CurrentWeather from "./CurrentWeather";
 import LocationForm from "./LocationForm";
-// import { FORECAST_URL, options } from "../../services/api";
 import { fetchData } from "../../services/httpsServices";
 import { useCurrentLocation } from "../../hooks/CurrentLocationContext";
+import { addCurrentLocationToLocalStorage, getCurrentLocationFromLocalStorage } from "../../utils/storage";
 
 const Forecast: React.FC = () => {
     const [forecast, setForecast] = useState<Array<Forecastday>>();
@@ -17,12 +16,16 @@ const Forecast: React.FC = () => {
     const { currentLocation, setCurrentLocation } = useCurrentLocation();
 
     const handleSubmit = async (location: string) => {
-        // const { data } = await axios.get(`${FORECAST_URL}?q=${location}&days=3`, options);
-        // setForecast(data.forecast.forecastday);
-        // setCurrentWeather(data.current);
-        // setLocationData(data.location);
+        console.log("input location: ", location);
         setCurrentLocation(location);
+        addCurrentLocationToLocalStorage(location);
     };
+
+    useEffect(() => {
+        const localStorage_currentLocation = getCurrentLocationFromLocalStorage();
+        console.log("localStorage_currentLocation: ", localStorage_currentLocation);
+        localStorage_currentLocation ? setCurrentLocation(localStorage_currentLocation) : setCurrentLocation("London");
+    }, []);
 
     useEffect(() => {
         if (currentLocation) {
@@ -41,11 +44,7 @@ const Forecast: React.FC = () => {
                 setLocationData(response.location);
             };
             getData();
-
-            console.log("forecast");
-            console.log(forecast);
         }
-        console.log("currentLocation: ", currentLocation);
     }, [currentLocation]);
 
     return (

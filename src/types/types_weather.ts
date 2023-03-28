@@ -118,3 +118,11 @@ export type Astro = {
     moon_phase: string;
     moon_illumination: string;
 };
+export type hour = {
+    time: string;
+    temp_c: number;
+    condition: {
+        text: string;
+        icon: string;
+    };
+}

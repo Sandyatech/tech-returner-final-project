@@ -1,29 +1,21 @@
 import React, { useState } from "react";
 import axios from "axios";
 import "../../App.css";
-import { WeatherData, CurrentWeatherData, LocationData } from "../../files_backup/types";
+import { Forecastday, CurrentWeatherData, Location } from "../../types/types_weather";
 import WeatherCard from "./WeatherCard";
 import CurrentWeather from "./CurrentWeather";
 import LocationForm from "./LocationForm";
+import { FORECAST_URL, options } from "../../services/api";
+
 
 function Forecast() {
-    const [forecast, setForecast] = useState<{ forecastday: WeatherData[] }>();
+    const [forecast, setForecast] = useState<Forecastday[]>();
     const [currentWeather, setCurrentWeather] = useState<CurrentWeatherData>();
-    const [locationData, setLocationData] = useState<LocationData>();
+    const [locationData, setLocationData] = useState<Location>();
 
     const handleSubmit = async (location: string) => {
-        const options = {
-            method: "GET",
-            url: "https://weatherapi-com.p.rapidapi.com/forecast.json",
-            params: { q: location, days: "3" },
-            headers: {
-                "X-RapidAPI-Key": "3ef5c4e138msh91644e12beb4158p1e5cb6jsn1b6b43ab6590",
-                "X-RapidAPI-Host": "weatherapi-com.p.rapidapi.com",
-            },
-        };
-
-        const { data } = await axios.request(options);
-        setForecast(data.forecast);
+        const { data } = await axios.get(`${FORECAST_URL}?q=${location}&days=3`, options);
+        setForecast(data.forecast.forecastday);
         setCurrentWeather(data.current);
         setLocationData(data.location);
     };
@@ -37,7 +29,7 @@ function Forecast() {
                     <div className="forecast-container ">
                         <ul className="cards-list">
                             {forecast &&
-                                forecast.forecastday.map((day) => (
+                                forecast.map((day) => (
                                     <li key={day.date} className="">
                                         <WeatherCard day={day} />
                                     </li>

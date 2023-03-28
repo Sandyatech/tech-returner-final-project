@@ -1,5 +1,6 @@
 import React from "react";
 import { useCurrentLocation } from "../../hooks/CurrentLocationContext";
+import { addCurrentLocationToLocalStorage } from "../../utils/storage";
 
 interface LocationFormProps {
     handleSubmit: (location: string) => Promise<void>;
@@ -14,8 +15,9 @@ const LocationForm: React.FC<LocationFormProps> = ({ handleSubmit }) => {
         handleSubmit(location);
     };
 
-    const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setLocation(e.target.value);
+    const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {        
+        setLocation(e.target.value);        
+        addCurrentLocationToLocalStorage(e.target.value);
     };
 
     return (

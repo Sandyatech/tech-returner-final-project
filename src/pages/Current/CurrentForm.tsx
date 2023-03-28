@@ -19,7 +19,7 @@ const LocationForm: React.FC<LocationFormProps> = ({ handleSubmit }) => {
     };
 
     return (
-        <form onSubmit={onSubmit} className="form-container">
+        <form onSubmit={onSubmit} className="form-container Current favourites-width">
             <input type="text" placeholder="Enter Location" onChange={onChange} />
             <button type="submit">Get Location Weather</button>
         </form>

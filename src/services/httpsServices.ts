@@ -3,13 +3,10 @@ import { RootCurrent, RootForecast, RootHistroy } from "../types/types_weather";
 import { ResponseType } from "../types/types_weather";
 import { headers, CURRENT_URL, FORECAST_URL, HISTORY_URL } from "./api";
 
-// type ResponseType = "RootCurrent" | "RootForecast" | "RootHistroy";
-
 interface FetchDataProps {
     responseType: ResponseType;
     params: any;
 }
-// urlPath: string;
 
 export async function fetchData({ responseType, params }: FetchDataProps) {
     try {
@@ -36,7 +33,9 @@ export async function fetchData({ responseType, params }: FetchDataProps) {
                 return response.data as RootHistroy;
             }
             default:
-                throw new Error(`Unknown response type: ${responseType}`);
+                console.log(`Unknown response type: ${responseType}`);
+                alert(`Unknown response type: ${responseType}`);
+                return undefined;
         }
     } catch (err) {
         const error = err as Error | AxiosError;
@@ -45,47 +44,26 @@ export async function fetchData({ responseType, params }: FetchDataProps) {
                 if (error.response.status === 404) {
                     console.log("404 Not Found");
                     alert("Http ERROR! 404 Not Found");
+                    return undefined;
                 } else {
                     alert(`Http ERROR : ${error.response.data}`);
                     console.log(error.response.data);
                     console.log(error.response.status);
                     console.log(error.response.headers);
+                    return undefined;
                 }
             } else if (error.request) {
                 console.log(error.request);
                 alert(`Http ERROR : ${String(error.request)}`);
+                return undefined;
             } else {
                 console.log("Error", error.message);
                 alert(`Http ERROR : ${String(error.message)}`);
+                return undefined;
             }
         }
         console.log("Native Error", error);
         alert(`Http Native ERROR : ${String(error.message)}`);
+        return undefined;
     }
 }
-
-// NOTE:
-// NOTE: FAILED code below !!!
-// NOTE:
-
-// interface FetchDataProps<T extends ResponseType> {
-//     responseType: T;
-//     urlPath: string;
-//     params: any;
-// }
-
-// export async function fetchData<T extends ResponseType>({ responseType, urlPath, params }: FetchDataProps<T>) {
-//     const response = await axios.get<T>(urlPath, {
-//         headers: headers,
-//         params: params,
-//     });
-//     return response;
-// }
-
-// const aaa = async () => {
-//     const result = await fetchData<RootHistroy>({
-//         responseType: RootHistroy,
-//         urlPath: "/api/data",
-//         params: { id: 1 },
-//     });
-// };

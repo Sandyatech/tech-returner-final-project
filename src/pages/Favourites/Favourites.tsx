@@ -74,8 +74,10 @@ const Favourites = () => {
         const response = (await fetchData({
             responseType: "RootCurrent",
             params,
-        })) as RootCurrent;
-        setRoot(response);
+        })) as RootCurrent | undefined;
+        if (response){
+            setRoot(response);
+        }
     };
 
     

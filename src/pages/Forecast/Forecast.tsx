@@ -38,11 +38,12 @@ const Forecast: React.FC = () => {
                 const response = (await fetchData({
                     responseType: "RootForecast",
                     params,
-                })) as RootForecast;
-
-                setForecast(response.forecast.forecastday);
-                setCurrentWeather(response.current);
-                setLocationData(response.location);
+                })) as RootForecast | undefined;
+                if (response){   
+                    setForecast(response.forecast.forecastday);
+                    setCurrentWeather(response.current);
+                    setLocationData(response.location);
+                }
             };
             getData();
         }

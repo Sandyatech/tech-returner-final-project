@@ -28,3 +28,7 @@ export function addEntryToLocalStorage(key:any,value:any) {
 export function getEntryFromLocalStorage(key:any) {
     return isLocalStorageAvailable() ? localStorage.getItem(key) : '';
 }
+
+export function removeEntryFromLocalStorage(key: any) {
+    return isLocalStorageAvailable() ? localStorage.removeItem(key) : '';
+}

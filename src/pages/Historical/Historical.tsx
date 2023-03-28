@@ -30,7 +30,7 @@ const Historical: React.FC = () => {
     }, [dateSubtract]);
 
     useEffect(() => {
-        if (date) {
+        if (date && currentLocation) {
             const getData = async () => {
                 const params = {
                     q: currentLocation,
@@ -41,7 +41,7 @@ const Historical: React.FC = () => {
                     responseType: "RootHistroy",
                     params,
                 })) as RootHistroy | undefined;
-                if (response){   
+                if (response) {
                     createLabelArray();
                     setWeatherData(response?.forecast?.forecastday[0]);
                     setCityDisplay(response?.location?.name);

@@ -39,7 +39,7 @@ const Forecast: React.FC = () => {
                     responseType: "RootForecast",
                     params,
                 })) as RootForecast | undefined;
-                if (response){   
+                if (response) {
                     setForecast(response.forecast.forecastday);
                     setCurrentWeather(response.current);
                     setLocationData(response.location);

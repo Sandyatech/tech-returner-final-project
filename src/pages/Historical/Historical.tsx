@@ -40,11 +40,12 @@ const Historical: React.FC = () => {
                 const response = (await fetchData({
                     responseType: "RootHistroy",
                     params,
-                })) as RootHistroy;
-
-                createLabelArray();
-                setWeatherData(response?.forecast?.forecastday[0]);
-                setCityDisplay(response?.location?.name);
+                })) as RootHistroy | undefined;
+                if (response){   
+                    createLabelArray();
+                    setWeatherData(response?.forecast?.forecastday[0]);
+                    setCityDisplay(response?.location?.name);
+                }
             };
             getData();
         }

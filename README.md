@@ -21,3 +21,8 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 🟢🔴 The **Health** page shows you if the API is online.
 
+## Demo link
+
+http://34.90.114.226:3003/
+
+(Valid for a few months, from Mar 2023)

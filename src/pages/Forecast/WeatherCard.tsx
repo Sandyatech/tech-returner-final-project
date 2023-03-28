@@ -1,14 +1,9 @@
 import React from "react";
-// import { hour } from "../../types/types_weather";
 import { Forecastday, HourlyData } from "../../types/types_weather";
 import "../../App.css";
 
 interface WeatherCardProps {
     day: Forecastday;
-    // day: {
-    //     date: string;
-    //     hour: Array<hour>;
-    // };
 }
 const WeatherCard: React.FC<WeatherCardProps> = ({ day }) => {
     if (!day?.hour?.length) {

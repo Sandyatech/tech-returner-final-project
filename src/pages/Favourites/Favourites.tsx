@@ -27,11 +27,7 @@ const Favourites = () => {
         getStorageLocs();
     },[])
 
-
-    
-    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-        event.preventDefault();
-        getData(loc);
+    const storedLoc = async() => {
         let found = false;
         const total = Number(getEntryFromLocalStorage('totalFav'));
         if (total > 0) {
@@ -53,7 +49,12 @@ const Favourites = () => {
             addEntryToLocalStorage('totalFav', 1);
         }
 
+    }
     
+    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
+        getData(loc);
+  
     };
     useEffect(() => {
         if (favourites) {
@@ -75,6 +76,7 @@ const Favourites = () => {
                     index == array.findIndex(item => item?.location.name == value?.location.name));
             setFavourites(prods);                  
             setFav(true);
+            storedLoc();
         }
 
     },[root]);
@@ -88,22 +90,16 @@ const Favourites = () => {
             responseType: "RootCurrent",
             params,
         })) as RootCurrent | undefined;
-        if (response){
+        if (response) {
             setRoot(response);
         }
-    };
+     };
 
     const removeFavourite = async (name: any) => {
         const total = Number(getEntryFromLocalStorage('totalFav'));
         let deleted = false;
-        for (let j = 0; j < total; j++) {
-            let favLoc = await getEntryFromLocalStorage(`fav${j}`);
-            console.log(favLoc);
-        }
         for (let i = 0; i < total; i++) {
             let favLoc = await getEntryFromLocalStorage(`fav${i}`);
-            console.log(favLoc);
-            console.log(name);
             if (favLoc?.toUpperCase() === name.toUpperCase()) {
                 removeEntryFromLocalStorage(favLoc);
                 addEntryToLocalStorage('totalFav', (total - 1));

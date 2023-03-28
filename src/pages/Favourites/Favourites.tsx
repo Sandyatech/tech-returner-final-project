@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { addEntryToLocalStorage, getEntryFromLocalStorage } from "../../utils/storage"
+import { timeout } from "../../utils/utils"
 import { RootCurrent, Location, CurrentWeatherData } from "../../types/types_weather";
 import { fetchData } from "../../services/httpsServices";
 import ComponentCurrentWether from "../Current/weather_value"
@@ -11,12 +12,15 @@ const Favourites = () => {
     const [favourites, setFavourites] = useState<Array<RootCurrent | undefined>>([]);
     const [fav, setFav] = useState<boolean>(false);
 
+
+
     useEffect(() => {
         const getStorageLocs = async () => {
             const total = Number(getEntryFromLocalStorage('totalFav'));
             for (let i = 0; i < total; i++) {
                 let favLoc = await getEntryFromLocalStorage(`fav${i}`);
-                let favLoc1= favLoc?getData(favLoc):null;
+                let favLoc1 = favLoc ? getData(favLoc) : null;
+                await timeout(100); 
             }
         }
         getStorageLocs();

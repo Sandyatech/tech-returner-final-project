@@ -4,7 +4,7 @@ import CurrentLocationContext from "../hooks/CurrentLocationContext";
 import { getCurrentLocationFromLocalStorage } from "../utils/storage";
 
 const MainLayout: React.FC = () => {
-    const [currentLocation, setCurrentLocation] = useState<string>("Tokyo");
+    const [currentLocation, setCurrentLocation] = useState<string>("");
 
     return (
         <>

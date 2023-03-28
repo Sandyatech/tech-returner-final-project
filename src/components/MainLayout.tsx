@@ -1,6 +1,7 @@
 import { Outlet } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import CurrentLocationContext from "../hooks/CurrentLocationContext";
+import { getCurrentLocationFromLocalStorage } from "../utils/storage";
 
 const MainLayout: React.FC = () => {
   const [currentLocation, setCurrentLocation] = useState<string>("");

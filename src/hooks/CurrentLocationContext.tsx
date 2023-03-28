@@ -1,11 +1,11 @@
 import React, { useContext } from "react";
 
-interface CurrentLocationContext {
+interface interface_CurrentLocationContext {
     currentLocation: string;
     setCurrentLocation: React.Dispatch<React.SetStateAction<string>>;
 }
 
-const CurrentLocationContext = React.createContext<CurrentLocationContext>({
+const CurrentLocationContext = React.createContext<interface_CurrentLocationContext>({
     currentLocation: "London",
     setCurrentLocation: () => {},
 });

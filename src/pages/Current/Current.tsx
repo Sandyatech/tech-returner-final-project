@@ -17,33 +17,8 @@ function CurrentWeather() {
     const {currentLocation, setCurrentLocation} = useCurrentLocation();
 
     const [errormessageApp, seterrormessageApp] = useState<string | undefined>();
-    // const fetchWeather = async () => {
+    
 
-    //     try {
-
-    //         const apiResponse = await fetch(`https://weatherapi-com.p.rapidapi.com/current.json?q=${input_location}`, options);
-    //         if (apiResponse.status === 200) {
-
-    //             const dataapiResponse = await apiResponse.json() as { data: RootCurrent[] }
-    //             setRoot(dataapiResponse);
-
-    //         } else if (apiResponse.status === 500) {
-
-    //             seterrormessageApp("Oops... something went wrong, try again 🤕");
-
-    //         } else if (apiResponse.status === 418) {
-
-    //             seterrormessageApp("418 I'm a tea pot 🫖 , silly");
-
-    //         };
-
-    //     } catch (error) {
-    //         console.log(" this error occured : ->->-> " + error + " <-<-<- : this error occured ");
-
-    //     };
-    // };
-
-    // useEffect(() => {
     const getData = async (location: string) => {
         const params = {
             // TODO2: useContent

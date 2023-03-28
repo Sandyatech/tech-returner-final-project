@@ -1,13 +1,26 @@
-import { fireEvent, render, screen } from "@testing-library/react";
-import LocationForm from "./CurrentForm";
-import { useCurrentLocation } from "../../hooks/CurrentLocationContext";
-import CurrentWeather from "./Current";
+import React from 'react';
+import { render, fireEvent, screen } from '@testing-library/react';
+import CurrentWeather from './Current';
 
-test("Pass the valut in to Props", () => {
-    // const testInterfaceSNumberOfBeingsProps: LocationFormProps = {
-    //     location: "London",
-    //     handleSubmit: () => { },
-    // };
-    // render(<LocationForm{...testInterfaceSNumberOfBeingsProps} />);
-    // expect(screen.getByDisplayValue(testInterfaceSNumberOfBeingsProps.LocationForm)).toBeInTheDocument();
+describe('Current component', () => {
+    test('calls handleSubmit with the entered Current location', async() => {
+        const handleSubmit = jest.fn();
+        render(<CurrentWeather />);
+
+        const locationInput = screen.getByPlaceholderText('Enter Location');
+        fireEvent.change(locationInput, { target: { value: 'London' } });
+
+        const submitButton = screen.getByRole('button', { name: 'Get Location Weather'});
+        fireEvent.click(submitButton);
+        expect(await screen.findByText('London')).toBeInTheDocument();
+     });
+
+    test('renders a Current Location text input and a submit button', () => {
+        render(<CurrentWeather />);
+        const locationInput = screen.getByPlaceholderText('Enter Location');
+        expect(locationInput).toBeInTheDocument();
+        const submitButton = screen.getByRole('button', { name: 'Get Location Weather' });
+        expect(submitButton).toBeInTheDocument();
+    });
+
 });

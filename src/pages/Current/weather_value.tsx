@@ -25,33 +25,27 @@ const ComponentCurrentWether: React.FC<propsWeather> = ({ dataWeather }) => {
                     <div className="Current-col">{dataWeather.location.country}</div>
                 </div>
                 <div className="Current-row">
-                    <div className="Current-col">Time Zone :</div>
+                    <div className="Current-col">Time zone :</div>
                     <div className="Current-col">{dataWeather.location.tz_id}</div>
                 </div>
                 <div className="Current-row">
-                    <div className="Current-col">Tempature C :</div>
+                    <div className="Current-col">Temperature °C :</div>
                     <div className="Current-col">{dataWeather.current.temp_c}</div>
                 </div>
                 <div className="Current-row">
-                    <div className="Current-col">Tempature F :</div>
+                    <div className="Current-col">Temperature °F :</div>
                     <div className="Current-col">{dataWeather.current.temp_f}</div>
                 </div>
                 <div className="Current-row">
-                    <div className="Current-col">Weather Status :</div>
-                    <div className="Current-col">{dataWeather.current.condition.text}</div>
+                    <div className="Current-col">Current weather :</div>
+                    <div className="Current-col">{dataWeather.current.condition.text}<br /><img src={dataWeather.current.condition.icon}></img></div>
                 </div>
                 <div className="Current-row">
-                    <div className="Current-col">Weather Icon :</div>
-                    <div className="Current-col">
-                        <img src={dataWeather.current.condition.icon}></img>
-                    </div>
-                </div>
-                <div className="Current-row">
-                    <div className="Current-col">Wind MPH :</div>
+                    <div className="Current-col">Wind mph :</div>
                     <div className="Current-col">{dataWeather.current.wind_mph}</div>
                 </div>
                 <div className="Current-row">
-                    <div className="Current-col">Wind Kph :</div>
+                    <div className="Current-col">Wind km/h :</div>
                     <div className="Current-col">{dataWeather.current.wind_kph}</div>
                 </div>
             </div>

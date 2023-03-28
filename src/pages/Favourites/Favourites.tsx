@@ -8,6 +8,7 @@ import ComponentCurrentWether from "../Current/weather_value"
 
 const Favourites = () => {
     const [loc, setLoc] = useState<string>('');
+    const [nameloc, setNameLoc] = useState<string>('');
     const [root, setRoot] = useState<RootCurrent>();
     const [favourites, setFavourites] = useState<Array<RootCurrent | undefined>>([]);
     const [fav, setFav] = useState<boolean>(false);
@@ -36,7 +37,7 @@ const Favourites = () => {
         if (total > 0) {
             for (let i = 0; i < total; i++) {
                 let favLoc = await getEntryFromLocalStorage(`fav${i}`);
-                if (favLoc == loc) {
+                if (favLoc?.toUpperCase() == loc.toUpperCase()) {
                     found = true; break;
                 }
 
@@ -94,33 +95,54 @@ const Favourites = () => {
 
     const removeFavourite = async (name: any) => {
         const total = Number(getEntryFromLocalStorage('totalFav'));
-        console.log(total);
+        let deleted = false;
+        for (let j = 0; j < total; j++) {
+            let favLoc = await getEntryFromLocalStorage(`fav${j}`);
+            console.log(favLoc);
+        }
         for (let i = 0; i < total; i++) {
             let favLoc = await getEntryFromLocalStorage(`fav${i}`);
-            console.log(favLoc)
-            if (favLoc?.toUpperCase == name.toUpperCase) {
+            console.log(favLoc);
+            console.log(name);
+            if (favLoc?.toUpperCase() === name.toUpperCase()) {
                 removeEntryFromLocalStorage(favLoc);
                 addEntryToLocalStorage('totalFav', (total - 1));
                 const prods = favourites.filter(
                     item => item?.location.name != name);
                 setFavourites(prods);
-                break;
+                deleted = true;
+
+            }
+            else {
+                if (deleted == true) {
+                    favLoc = await getEntryFromLocalStorage(`fav${i}`);
+                    await addEntryToLocalStorage(`fav${i - 1}`, favLoc);
+                }
+
             }
         }
+    }
+
+    const clearAll = () => {
+        localStorage.clear();
+        setFavourites([]);
     }
 
     return (
         <div>
             <div className="form-container Current favourites-width">
-            <form onSubmit={handleSubmit} >
+                <form onSubmit={handleSubmit} >
                 <input
                     type="text"
                     placeholder="Enter Favourite Location"
                     value={loc}
                     onChange={(event) => setLoc(event.target.value)}
-                />
-                <button type="submit">Get Favourite Location</button>
+                    /> 
+                    <button type="submit">Get Favourite</button>
+               
                 </form>
+                <button onClick={clearAll}>Clear All</button>
+                
             </div>
             <div className="favourites_container">
                 {(fav == true) && (favourites.map((favourite, index) => (<div className="favourites_img_container">

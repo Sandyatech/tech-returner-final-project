@@ -10,7 +10,7 @@ describe('Favourites component', () => {
         const locationInput = screen.getByPlaceholderText("Enter Favourite Location");
         fireEvent.change(locationInput, { target: { value: "Stockport" } });
 
-        const submitButton = screen.getByRole("button", { name: "Get Favourite Location"});
+        const submitButton = screen.getByRole("button", { name: "Get Favourite"});
         fireEvent.click(submitButton);
         expect(await screen.findByText(/Stockport/i)).toBeInTheDocument();
      });
@@ -19,7 +19,7 @@ describe('Favourites component', () => {
         render(<Favourites />);
         const locationInput = screen.getByPlaceholderText('Enter Favourite Location');
         expect(locationInput).toBeInTheDocument();
-        const submitButton = screen.getByRole('button', { name: 'Get Favourite Location' });
+        const submitButton = screen.getByRole('button', { name: 'Get Favourite' });
         expect(submitButton).toBeInTheDocument();
     });
 

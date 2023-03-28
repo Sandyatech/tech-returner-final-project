@@ -24,7 +24,9 @@ const Forecast: React.FC = () => {
     useEffect(() => {
         const localStorage_currentLocation = getCurrentLocationFromLocalStorage();
         console.log("localStorage_currentLocation: ", localStorage_currentLocation);
-        localStorage_currentLocation ? setCurrentLocation(localStorage_currentLocation) : setCurrentLocation("London");
+        if (localStorage_currentLocation) {
+            setCurrentLocation(localStorage_currentLocation);
+        }
     }, []);
 
     useEffect(() => {

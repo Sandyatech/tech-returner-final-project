@@ -15,9 +15,9 @@ const WeatherCard: React.FC<WeatherCardProps> = ({ day }) => {
                 <div className="hourly">
                     {day.hour.map((hour: HourlyData) => (
                         <div key={hour.time} className="card">
-                            <p>Time: {hour.time}</p>
-                            <p>Temp: {hour.temp_c}</p>
-                            <p>Condition: {hour.condition.text}</p>
+                            <p>{hour.time}</p>
+                            <p>{hour.temp_c}°C</p>
+                            <p>{hour.condition.text}</p>
                             <img src={hour.condition.icon} alt={hour.condition.text} />
                         </div>
                     ))}

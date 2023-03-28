@@ -9,53 +9,42 @@ const Health: React.FC = () => {
   let isLoading = false;
 
   useEffect(() => {
-    
-  const checkServerHealth = async () => {
-    try {
-      isLoading = true;
-      const apiResponse = await fetch(`${CURRENT_URL}?q=London`, options);
+    const checkServerHealth = async () => {
+      try {
+        isLoading = true;
+        const apiResponse = await fetch(`${CURRENT_URL}?q=London`, options);
 
-
-      /*
-
-const getData = async () => {
-                const params = {
-                    // TODO2: useContent
-                    q: currentLocation,
-                    dt: date,
-                    lang: "en",
-                };
-                const response = (await fetchData({
-                    responseType: "RootHistroy",
-                    params,
-                })) as RootHistroy;
-
-                // TODO2: error handling
-                createLabelArray();
-                setWeatherData(response?.forecast?.forecastday[0]);
-            };
-            getData();
-      */
-      isLoading = false;
-      if (apiResponse.status === 200) {
-        setHealthMessage("🟢 Weather API is responding correctly. 🟢");
-        setHealthGood(true);
-      } else {
-        setHealthMessage(
-          "🔴 There is a problem with Weather API at this time. 🔴"
-        );
+        isLoading = false;
+        if (apiResponse.status === 200) {
+          setHealthMessage("🟢 Weather API is responding correctly. 🟢");
+          setHealthGood(true);
+        } else if (apiResponse.status === 500) {
+          setHealthMessage(
+            "🔴 There is a problem with Weather API at this time. Status code 500: Internal server error 🔴"
+          );
+          setHealthGood(false);
+        } else {
+          setHealthMessage(
+            `🔴 There is a problem with Weather API at this time. Status code ${apiResponse.status} 🔴`
+          );
+          setHealthGood(false);
+        }
+      } catch (error) {
+        setHealthMessage(`🔴 Error: ${error} 🔴`);
         setHealthGood(false);
       }
-    } catch (error) {
-      console.log(`Error: ${error}`);
-    }
-  };
+    };
 
-  checkServerHealth();
- }, []);
+    checkServerHealth();
+  }, []);
 
   return (
-    <div className={"App health__background " + (healthGood || isLoading ? "" : "health__background--bad")}>
+    <div
+      className={
+        "App health__background " +
+        (healthGood || isLoading ? "" : "health__background--bad")
+      }
+    >
       <h1>API Health Check</h1>
       <p className="health__message">{healthMessage}</p>
     </div>

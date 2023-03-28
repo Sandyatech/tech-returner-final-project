@@ -42,11 +42,15 @@ export async function fetchData({ responseType, params }: FetchDataProps) {
         if (axios.isAxiosError(error)) {
             if (error.response) {
                 if (error.response.status === 404) {
-                    console.log("404 Not Found");
+                    console.log("Http ERROR! 404 Not Found");
                     alert("Http ERROR! 404 Not Found");
                     return undefined;
+                } else if (error.response.status === 400) {
+                    console.log("Http ERROR! 400 Bad Request");
+                    alert("Http ERROR! 400 Bad Request");
+                    return undefined;
                 } else {
-                    alert(`Http ERROR : ${error.response.data}`);
+                    alert(`Http other status ERROR : ${error.response.status}`);
                     console.log(error.response.data);
                     console.log(error.response.status);
                     console.log(error.response.headers);
@@ -54,11 +58,11 @@ export async function fetchData({ responseType, params }: FetchDataProps) {
                 }
             } else if (error.request) {
                 console.log(error.request);
-                alert(`Http ERROR : ${String(error.request)}`);
+                alert(`Http request ERROR : ${String(error.request)}`);
                 return undefined;
             } else {
                 console.log("Error", error.message);
-                alert(`Http ERROR : ${String(error.message)}`);
+                alert(`Http other ERROR : ${String(error.message)}`);
                 return undefined;
             }
         }

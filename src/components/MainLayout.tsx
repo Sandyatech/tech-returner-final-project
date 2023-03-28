@@ -1,20 +1,20 @@
 import { Outlet } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import CurrentLocationContext from "../hooks/CurrentLocationContext";
+import { getCurrentLocationFromLocalStorage } from "../utils/storage";
 
 const MainLayout: React.FC = () => {
-  const [currentLocation, setCurrentLocation] = useState<string>("London");
-  return (
-    <>
-      <main>
-        <CurrentLocationContext.Provider
-          value={{ currentLocation, setCurrentLocation }}
-        >
-          <Outlet />
-        </CurrentLocationContext.Provider>
-      </main>
-    </>
-  );
+    const [currentLocation, setCurrentLocation] = useState<string>("Tokyo");
+
+    return (
+        <>
+            <main>
+                <CurrentLocationContext.Provider value={{ currentLocation, setCurrentLocation }}>
+                    <Outlet />
+                </CurrentLocationContext.Provider>
+            </main>
+        </>
+    );
 };
 
 export default MainLayout;

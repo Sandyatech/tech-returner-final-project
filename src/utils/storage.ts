@@ -18,3 +18,13 @@ const isLocalStorageAvailable = () => {
         return false;
     }
 }
+
+export function addEntryToLocalStorage(key:any,value:any) {
+    if (isLocalStorageAvailable()) {
+        localStorage.setItem(key, value);
+    }
+}
+
+export function getEntryFromLocalStorage(key:any) {
+    return isLocalStorageAvailable() ? localStorage.getItem(key) : '';
+}

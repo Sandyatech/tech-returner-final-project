@@ -7,7 +7,6 @@ import CurrentWeather from "./CurrentWeather";
 import LocationForm from "./LocationForm";
 import { FORECAST_URL, options } from "../../services/api";
 
-
 function Forecast() {
     const [forecast, setForecast] = useState<Forecastday[]>();
     const [currentWeather, setCurrentWeather] = useState<CurrentWeatherData>();

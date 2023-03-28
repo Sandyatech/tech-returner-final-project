@@ -16,7 +16,7 @@ function CurrentWeather() {
         },
     };
     const [rootValue, setRoot] = useState<RootCurrent>();
-    const { currentLocation, setCurrentLocation } = useCurrentLocation();   
+    const { currentLocation, setCurrentLocation } = useCurrentLocation();
     const [locationData, setLocationData] = useState<Location>();
 
     const [errormessageApp, seterrormessageApp] = useState<string | undefined>();
@@ -26,7 +26,7 @@ function CurrentWeather() {
         setCurrentLocation(location);
         addCurrentLocationToLocalStorage(location);
 
-        
+
     };
 
     useEffect(() => {
@@ -40,7 +40,6 @@ function CurrentWeather() {
         if (currentLocation) {
             const getData = async () => {
                 const params = {
-                    // TODO2: useContent
                     q: currentLocation
                 };
                 const response = (await fetchData({
@@ -48,27 +47,14 @@ function CurrentWeather() {
                     params,
                 })) as RootCurrent | undefined;
                 if (response) {
-                // TODO2: error handling
-                setRoot(response);
+                    setRoot(response);
 
                 }
             };
             getData();
         }
     }, [currentLocation]);
-    // const getData = async (location: string) => {
-    //     const params = {
-    //         // TODO2: useContent
-    //         q: location
-    //     };
-    //     const response = (await fetchData({
-    //         responseType: "RootCurrent",
-    //         params,
-    //     })) as RootCurrent;
 
-    //     // TODO2: error handling
-    //     setRoot(response);
-    // };
 
     return (
         <>

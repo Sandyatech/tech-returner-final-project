@@ -7,8 +7,9 @@ interface LocationFormProps {
 }
 
 const LocationForm: React.FC<LocationFormProps> = ({ handleSubmit }) => {
-    //const [location, setLocation] = React.useState("");
-    const {currentLocation: location, setCurrentLocation: setLocation} = useCurrentLocation();
+    const [location, setLocation] = React.useState("");
+    // const {currentLocation: location, setCurrentLocation: setLocation} = useCurrentLocation();
+
 
     const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -17,7 +18,7 @@ const LocationForm: React.FC<LocationFormProps> = ({ handleSubmit }) => {
 
     const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {        
         setLocation(e.target.value);        
-        addCurrentLocationToLocalStorage(e.target.value);
+        // addCurrentLocationToLocalStorage(e.target.value);
     };
 
     return (

@@ -5,11 +5,11 @@ import { setupServer } from 'msw/node'
 import { CURRENT_URL } from "../../services/api";
 
 const server = setupServer(
-    rest.get(`${CURRENT_URL}?q=London`, (req, res, ctx) => {  
+    rest.get(`${CURRENT_URL}`, (req, res, ctx) => {  
       return res(ctx.status(200));
     }));
   
-  beforeAll(() => server.listen());
+  beforeAll(() => server.listen({ onUnhandledRequest: "bypass" }));;
   afterEach(() => server.resetHandlers());
   afterAll(() => server.close());
 
@@ -26,8 +26,9 @@ test("renders correct message when API is available", async () => {
 
  test("renders correct message when API is not available", async () => {
     server.use(
-        rest.get(`${CURRENT_URL}?q=London`, (req, res, ctx) => {  
-            return res(ctx.status(500));
+        rest.get(`${CURRENT_URL}`, (req, res, ctx) => { 
+            //?${new URLSearchParams({q: 'Madrid'})}
+            return res(ctx.status(500));            
           }));
     render(<Health />);
     expect(await screen.findByText(/There is a problem with Weather API at this time./i)).toBeInTheDocument();

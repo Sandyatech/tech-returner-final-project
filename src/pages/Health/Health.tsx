@@ -13,7 +13,29 @@ const Health: React.FC = () => {
   const checkServerHealth = async () => {
     try {
       isLoading = true;
-      const apiResponse = await fetch(`${CURRENT_URL}`, options);
+      const apiResponse = await fetch(`${CURRENT_URL}?q=London`, options);
+
+
+      /*
+
+const getData = async () => {
+                const params = {
+                    // TODO2: useContent
+                    q: currentLocation,
+                    dt: date,
+                    lang: "en",
+                };
+                const response = (await fetchData({
+                    responseType: "RootHistroy",
+                    params,
+                })) as RootHistroy;
+
+                // TODO2: error handling
+                createLabelArray();
+                setWeatherData(response?.forecast?.forecastday[0]);
+            };
+            getData();
+      */
       isLoading = false;
       if (apiResponse.status === 200) {
         setHealthMessage("🟢 Weather API is responding correctly. 🟢");

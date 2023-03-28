@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { addEntryToLocalStorage, getEntryFromLocalStorage } from "../../utils/storage"
+import { addEntryToLocalStorage, getEntryFromLocalStorage, removeEntryFromLocalStorage } from "../../utils/storage"
 import { timeout } from "../../utils/utils"
 import { RootCurrent, Location, CurrentWeatherData } from "../../types/types_weather";
 import { fetchData } from "../../services/httpsServices";
@@ -30,16 +30,28 @@ const Favourites = () => {
     
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
+        getData(loc);
+        let found = false;
         const total = Number(getEntryFromLocalStorage('totalFav'));
         if (total > 0) {
-            addEntryToLocalStorage(`fav${total}`, loc);
-            addEntryToLocalStorage('totalFav', (total + 1));
+            for (let i = 0; i < total; i++) {
+                let favLoc = await getEntryFromLocalStorage(`fav${i}`);
+                if (favLoc == loc) {
+                    found = true; break;
+                }
+
+            }
+            if (found == false) {
+                addEntryToLocalStorage(`fav${total}`, loc);
+                addEntryToLocalStorage('totalFav', (total + 1));
+            }
+
         }
         else {
             addEntryToLocalStorage('fav0', loc);
             addEntryToLocalStorage('totalFav', 1);
         }
-        getData(loc);
+
     
     };
     useEffect(() => {
@@ -80,7 +92,22 @@ const Favourites = () => {
         }
     };
 
-    
+    const removeFavourite = async (name: any) => {
+        const total = Number(getEntryFromLocalStorage('totalFav'));
+        console.log(total);
+        for (let i = 0; i < total; i++) {
+            let favLoc = await getEntryFromLocalStorage(`fav${i}`);
+            console.log(favLoc)
+            if (favLoc?.toUpperCase == name.toUpperCase) {
+                removeEntryFromLocalStorage(favLoc);
+                addEntryToLocalStorage('totalFav', (total - 1));
+                const prods = favourites.filter(
+                    item => item?.location.name != name);
+                setFavourites(prods);
+                break;
+            }
+        }
+    }
 
     return (
         <div>
@@ -96,9 +123,11 @@ const Favourites = () => {
                 </form>
             </div>
             <div className="favourites_container">
-            {(fav==true) && (favourites.map((favourite, index) =>
-                <ComponentCurrentWether key={index} dataWeather={{ location: favourite?.location as Location, current: favourite?.current as CurrentWeatherData }} />
-                ))}
+                {(fav == true) && (favourites.map((favourite, index) => (<div className="favourites_img_container">
+                    <img className="favourites_img favourites-img-margin" key={Math.random() * 10000} onClick={(event) => removeFavourite(favourite?.location.name)} src="./close.png" ></img>
+                    <ComponentCurrentWether key={index} dataWeather={{ location: favourite?.location as Location, current: favourite?.current as CurrentWeatherData }} />
+                </div>
+                )))}
             </div>
         </div>
     );

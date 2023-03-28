@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-
+import { addEntryToLocalStorage, getEntryFromLocalStorage } from "../../utils/storage"
 import { RootCurrent, Location, CurrentWeatherData } from "../../types/types_weather";
 import { fetchData } from "../../services/httpsServices";
 import ComponentCurrentWether from "../Current/weather_value"
@@ -11,10 +11,30 @@ const Favourites = () => {
     const [favourites, setFavourites] = useState<Array<RootCurrent | undefined>>([]);
     const [fav, setFav] = useState<boolean>(false);
 
+    useEffect(() => {
+        const getStorageLocs = async () => {
+            const total = Number(getEntryFromLocalStorage('totalFav'));
+            for (let i = 0; i < total; i++) {
+                let favLoc = await getEntryFromLocalStorage(`fav${i}`);
+                let favLoc1= favLoc?getData(favLoc):null;
+            }
+        }
+        getStorageLocs();
+    },[])
+
+
     
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        
+        const total = Number(getEntryFromLocalStorage('totalFav'));
+        if (total > 0) {
+            addEntryToLocalStorage(`fav${total}`, loc);
+            addEntryToLocalStorage('totalFav', (total + 1));
+        }
+        else {
+            addEntryToLocalStorage('fav0', loc);
+            addEntryToLocalStorage('totalFav', 1);
+        }
         getData(loc);
     
     };
@@ -55,6 +75,7 @@ const Favourites = () => {
         setRoot(response);
     };
 
+    
 
     return (
         <div>
